@@ -7,11 +7,11 @@ public class Address {
     private StreetAdress streetAdress;
     private Zip zip;
 
-    public Address(Country country, State state, City city, StreetAdress streetAdress, Zip zip){
-        this.country=country;
-        this.state=state;
-        this.city = city;
-        this.streetAdress=streetAdress;
-        this.zip=zip;
+    public Address(String countryName, String stateName, String cityName, String streetAddress, String zipCode){
+        this.country=new Country(countryName);
+        this.state=new State(stateName);
+        this.city = new City(cityName);
+        this.streetAdress=new StreetAdress(streetAddress);
+        this.zip=new Zip(zipCode);
     }
 }

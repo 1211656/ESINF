@@ -4,13 +4,82 @@
 @startuml
 
 
-    class Country {
 
+    package domain{
+        class Address{
+            country : Country
+            city : City
+            state : State
+            streetAddress : StreetAddress
+            zip : Zip
+        }
+
+        class Zip{
+            code : String
+        }
+
+        class City{
+            name : String
+        }
+
+        class StreetAddress{
+            name : String
+        }
+
+        class State{
+            name : String
+        }
+
+        class Country {
+            name : String
+
+
+        }
+
+        class SuperCharger{
+            address : Address
+        }
+
+        class Sale{
+            numberVehicles : int
+            typeVehicle : String
+            country : Country
+            year : int
+        }
+
+
+        class Stalls{
+        }
+
+        class PowerKw{
+        }
+
+        class GPS{
+        }
+
+        class Elevm{
+        }
+
+        class Status{
+        }
     }
 
-    class Year {
+    package fileIO{
+        class ReadCSVFile{
 
+        }
     }
+Address "1" --o "1" Country
+Address "1" --o "1" City
+Address "1" --o "1" StreetAddress
+Address "1" --o "1" Zip
+Address "1" --o "1" State
 
+SuperCharger "1" --o "1" Address
+SuperCharger "1" -- "1" Status
+SuperCharger "1" -- "1" GPS
+SuperCharger "1" -- "1" PowerKw
+SuperCharger "1" -- "1" Stalls
+SuperCharger "1" -- "1" Elevm
 
 @enduml

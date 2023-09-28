@@ -6,6 +6,7 @@ public interface Files {
 
     File CarregadoresFile = new File("carregadores_europa.csv");
     File SalesFile = new File("ev_sales.csv");
+    File Teste = new File("../teste.csv");
 
 
 }
