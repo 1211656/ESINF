@@ -33,6 +33,12 @@
             <artifactId>slf4j-jdk14</artifactId>
             <version>1.7.36</version> <!-- Replace with the version you prefer -->
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 
