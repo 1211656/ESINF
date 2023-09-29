@@ -42,7 +42,7 @@ class ReadCSVFileTest implements Files{
         Map<String, Map<String, Integer>> chargersCidade = new HashMap<>();*/
 
         CarregadoresCidade carregadoresCidade = new CarregadoresCidade();
-        carregadoresCidade.CountChargers(Teste);
+        carregadoresCidade.GetChargers(Teste);
         carregadoresCidade.mostraCarregadorCidade();
 
     }
