@@ -3,6 +3,7 @@ package fileIO;
 import domain.City;
 import domain.Country;
 import domain.Stalls;
+import domain.State;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,7 +19,13 @@ public class CarregadoresCidade implements Files {
     /* Mapa que guarda o País , Cidade e Carregadores.
        País é a chave principal do Map tendo um Map interno associado,
        onde a cidade atua como a chave e o valor é o número agregado de carregadores.*/
-    Map<Country, Map<City, Stalls>> chargersCidade = new HashMap<>();
+
+
+    Map<Country, Map<City, Stalls>> chargersCidade;
+
+    public CarregadoresCidade(){
+        chargersCidade= new HashMap<>();
+    }
 
     public void GetChargers(File file) {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -79,4 +86,24 @@ public class CarregadoresCidade implements Files {
             }
         }
     }
+
+
+    // vê se já existe a cidade no map
+    public boolean searchForCityInMap(Country country,City city){
+        for(Map.Entry<Country,Map<City, Stalls>>  entry : chargersCidade.entrySet()){
+            if(country.equals(entry.getKey())){
+                Map<City, Stalls> map = entry.getValue();
+                for (Map.Entry<City,Stalls> entry1 : map.entrySet()){
+                    if(entry1.getKey().equals(city)){
+                        return true;
+                    }
+                }
+            }
+
+        }
+        return false;
+    }
+
+
+
 }

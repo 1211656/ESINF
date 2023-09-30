@@ -11,4 +11,17 @@ public class City {
     public String getName() {
         return name;
     }
+
+    public boolean equals(Object other){
+        if(this == other){
+            return true;
+        }
+        if(other == null || getClass() != other.getClass()){
+            return false;
+        }
+        City city = (City) other;
+        return name.equals(city.name);
+    }
+
+
 }
