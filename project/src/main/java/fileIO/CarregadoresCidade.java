@@ -37,13 +37,32 @@ public class CarregadoresCidade implements Files {
                 String[] campos = splitCSVLine(linha);
 
                 //Cria os objetos Country, City e Stalls
-                Country country = new Country(campos[6].trim());
-                City city = new City(campos[3].trim());
+
+                Country country = getCountryInMap(campos[6].trim());
+                City city = getCityInMap(campos[3].trim(),country);
                 Stalls stalls = new Stalls(Integer.parseInt(campos[7].trim()));
 
-                //Adiciona ao Map chargersCidade o país, cidade e carregadores
-                chargersCidade.putIfAbsent(country, new HashMap<>());
-                chargersCidade.get(country).put(city, stalls);
+
+
+
+                // verificar se já existe o país
+                if(searchForCountryInMap(country)){
+                    // verificar se já existe a cidade
+                    if(searchForCityInMap(country,city)){
+                        // se já existir a cidade então temos de adicionar o número de stalls à cidade já existente
+                        addStallsToCity(country,city,stalls);
+                    }
+                    // se já existir país mas não existir cidade, adicionas à chave country equivalente o mapa <Ciy, Stall> para não haver repetilção de países
+                    else{
+
+                        chargersCidade.get(country).put(city,stalls);
+                    }
+                }
+                else{
+                    //Adiciona ao Map chargersCidade o país, cidade e carregadores
+                    chargersCidade.put(country, new HashMap<>());
+                    chargersCidade.get(country).put(city, stalls);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,7 +101,7 @@ public class CarregadoresCidade implements Files {
             System.out.print(entry.getKey().getName() + " | ");
             // Percorre o Map interno chargersCidade
             for (Map.Entry<City, Stalls> entry2 : entry.getValue().entrySet()) {
-                System.out.println(entry2.getKey().getName() + " | " + entry2.getValue().getNumber());
+                System.out.println(entry2.getKey().getName() + " | " + entry2.getValue().getNumberOfStalls());
             }
         }
     }
@@ -90,6 +109,9 @@ public class CarregadoresCidade implements Files {
 
     // vê se já existe a cidade no map
     public boolean searchForCityInMap(Country country,City city){
+        if(city == null || country == null){
+            return false;
+        }
         for(Map.Entry<Country,Map<City, Stalls>>  entry : chargersCidade.entrySet()){
             if(country.equals(entry.getKey())){
                 Map<City, Stalls> map = entry.getValue();
@@ -102,6 +124,56 @@ public class CarregadoresCidade implements Files {
 
         }
         return false;
+    }
+
+    // vê se já existe o país no map
+    public boolean searchForCountryInMap(Country country){
+        if(country == null){
+            return false;
+        }
+        for(Map.Entry<Country,Map<City,Stalls>> entry : chargersCidade.entrySet()){
+            if(entry.getKey().equals(country)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // adiciona as stalls da mesma cidade
+    public boolean addStallsToCity(Country country, City city, Stalls stalls){
+        try{
+            Map<City,Stalls> map = chargersCidade.get(country);
+            map.get(city).setNumberOfStalls(map.get(city).getNumberOfStalls()+stalls.getNumberOfStalls());
+            return true;
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+
+
+    // obtem o país relevante à string lida
+    public Country getCountryInMap(String country){
+        for(Map.Entry<Country,Map<City,Stalls>> entry : chargersCidade.entrySet()){
+            if(entry.getKey().getName().equalsIgnoreCase(country)){
+                return entry.getKey();
+            }
+        }
+        return new Country(country);
+    }
+
+    // obtem a cidade relevante à string lida
+    public City getCityInMap(String city, Country country){
+        if(chargersCidade.isEmpty() || !searchForCountryInMap(country)){
+            return new City(city);
+        }
+        Map<City,Stalls> map = chargersCidade.get(country);
+        for(Map.Entry<City,Stalls> entry : map.entrySet()){
+            if(entry.getKey().getName().equalsIgnoreCase(city)){
+                return entry.getKey();
+            }
+        }
+        return new City(city);
     }
 
 

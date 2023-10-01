@@ -50,4 +50,36 @@ class CarregadoresCidadeTest implements Files{
         carregadoresCidade.GetChargers(Teste);
         carregadoresCidade.mostraCarregadorCidade();
     }
+
+    // vê se ao adicionar 1 numero de stalls aparece no mapa
+    @Test
+    void addStallsToCity() {
+        carregadoresCidade = new CarregadoresCidade();
+        Country country = new Country("Portugal");
+        City city = new City("Porto");
+        Stalls stalls = new Stalls(1);
+        carregadoresCidade.chargersCidade.putIfAbsent(country, new HashMap<>());
+        carregadoresCidade.chargersCidade.get(country).put(city, stalls);
+        carregadoresCidade.addStallsToCity(country,city,stalls);
+        int expected = 2;
+        assertEquals(expected,carregadoresCidade.chargersCidade.get(country).get(city).getNumberOfStalls());
+
+    }
+
+    @Test
+    void searchForCountryInMap() {
+        carregadoresCidade = new CarregadoresCidade();
+        carregadoresCidade.chargersCidade.put(new Country("Portugal"),new HashMap<>());
+        boolean expectedResult = true;
+        assertEquals(expectedResult,carregadoresCidade.searchForCountryInMap(new Country("Portugal")));
+
+    }
+
+    @Test
+    void searchForCountryInMapNull() {
+        carregadoresCidade = new CarregadoresCidade();
+        boolean expectedResult = false;
+        assertEquals(expectedResult,carregadoresCidade.searchForCountryInMap(null));
+
+    }
 }

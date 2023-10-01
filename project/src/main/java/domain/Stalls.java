@@ -7,7 +7,11 @@ public class Stalls {
         this.numberOfStalls = n;
     }
 
-    public int getNumber() {
+    public int getNumberOfStalls() {
         return numberOfStalls;
+    }
+
+    public void setNumberOfStalls(int numberOfStalls) {
+        this.numberOfStalls = numberOfStalls;
     }
 }
