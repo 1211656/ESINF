@@ -1,32 +1,34 @@
 package domain;
 
+import repositories.Repositories;
+
 public class Sale {
-    private int numberVehicles;
+
     private String typeVehicle;
     private Country country;
     private int year;
 
-    public Sale(int numberVehicles, String typeVehicle, String country, int year) {
-        this.numberVehicles = numberVehicles;
+    public Sale( String typeVehicle, String country, int year) {
         this.typeVehicle = typeVehicle;
         this.country = new Country(country);
         this.year = year;
-
-        
+        Repositories.getSalesList().add(this);
     }
 
-    public static boolean createSale(String numberVehicles, String typeVehicle, String country, String year) {
-        boolean sairLoop = false;
-        while (sairLoop == false) {
-            try {
-                new Sale(Integer.parseInt(numberVehicles), typeVehicle, country, Integer.parseInt(year));
-                sairLoop = true;
-            } catch (NumberFormatException e) {
-
-            }
-        }
-        return sairLoop;
+    public Country getCountry() {
+        return country;
     }
 
+    public int getYear() {
+        return year;
+    }
 
+    public String getTypeVehicle() {
+        return typeVehicle;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Country: %s | Type : %s | Year : %d |\n",country.toString(),typeVehicle,year);
+    }
 }
