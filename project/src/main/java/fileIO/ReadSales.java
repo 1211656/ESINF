@@ -33,16 +33,26 @@ public class ReadSales implements Files {
         System.out.println("Country | Difference\n");
         ArrayList<Country> countries = new ArrayList<>();
         for (Map.Entry<Sale,Integer> entry : map.entrySet()) {
-            if(!countries.contains(entry.getKey().getCountry())){
+            if(!searchForCountry(entry.getKey().getCountry(), countries)){
                 Map<Sale,Integer> map2 = getMapOfCountriesHighestAndLowestYear(entry.getKey().getCountry());
                 for(Map.Entry<Sale,Integer> map3 : map2.entrySet()){
                     diferenca = Math.abs(map3.getValue() - diferenca);
                 }
                 System.out.printf("%s | %d\n",entry.getKey().getCountry(),diferenca);
+                diferenca = 0;
                 countries.add(entry.getKey().getCountry());
             }
         }
 
+    }
+
+    private boolean searchForCountry(Country country, ArrayList<Country> countries){
+        for (int i = 0; i < countries.size(); i++) {
+            if(countries.get(i).equals(country)){
+                return true;
+            }
+        }
+        return false;
     }
 
 
