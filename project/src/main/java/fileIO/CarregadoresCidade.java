@@ -1,9 +1,6 @@
 package fileIO;
 
-import domain.City;
-import domain.Country;
-import domain.Stalls;
-import domain.State;
+import domain.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -38,9 +35,11 @@ public class CarregadoresCidade implements Files {
 
                 //Cria os objetos Country, City e Stalls
 
-                Country country = getCountryInMap(campos[6].trim());
-                City city = getCityInMap(campos[3].trim(),country);
-                Stalls stalls = new Stalls(Integer.parseInt(campos[7].trim()));
+                Country country = getCountryInMap(campos[5].trim());
+                City city = getCityInMap(campos[2].trim(),country);
+                PowerKw powerKw = new PowerKw(Integer.parseInt(campos[7].trim()));
+                Stalls stalls = new Stalls(Integer.parseInt(campos[6].trim()), powerKw);
+
 
 
 
@@ -176,6 +175,56 @@ public class CarregadoresCidade implements Files {
         return new City(city);
     }
 
+    // Função que mostra quantos carregardores existem por país, separados por kW <= 150 e kW > 150
+    public void contaCarregadorPais() {
+        // Mapa que guarda o país e o número total de carregadores para kW <= 150
+        Map<Country, PowerKw> carregadoresKwInferior = new HashMap<>();
+        // Mapa que guarda o país e o número total de carregadores para kW > 150
+        Map<Country, PowerKw> carregadoresKwSuperior = new HashMap<>();
 
+        int KwLimit = 150;
 
+        // Ciclo que percorre o Map chargersCidade
+        for (Map.Entry<Country, Map<City, Stalls>> entry : chargersCidade.entrySet()) {
+            int totalcarregadoresKwInferior = 0;
+            int totalcarregadoresKwSuperior = 0;
+
+            // Ciclo que percorre o Map interno chargersCidade
+            for (Map.Entry<City, Stalls> entry2 : entry.getValue().entrySet()) {
+                int stalls = entry2.getValue().getNumberOfStalls();
+                PowerKw powerKw = entry2.getValue().getPowerKw();
+
+                if (powerKw.getKw() <= KwLimit) {
+                    totalcarregadoresKwInferior += stalls;
+                } else {
+                    totalcarregadoresKwSuperior += stalls;
+                }
+            }
+
+            // Adiciona o país ao Map correspondente
+            if (totalcarregadoresKwInferior > 0) {
+                carregadoresKwInferior.put(entry.getKey(), new PowerKw(totalcarregadoresKwInferior));
+            }
+            if (totalcarregadoresKwSuperior > 0) {
+                carregadoresKwSuperior.put(entry.getKey(), new PowerKw(totalcarregadoresKwSuperior));
+            }
+        }
+
+        // Imprime os resultados usando a função de impressão separada
+        mostraResultadoPorPais(carregadoresKwInferior, "Carregadores com kW <= " + KwLimit + " por país:\n");
+        mostraResultadoPorPais(carregadoresKwSuperior, "\nCarregadores com kW > " + KwLimit + " por país:\n");
+    }
+
+    public void mostraResultadoPorPais(Map<Country, PowerKw> chargersByCountry, String message) {
+        System.out.println(message);
+        // Ordena o Map chargersByCountry por número de carregadores de forma decrescente, e por ordem alfabética do nome do país em caso de empate
+        chargersByCountry.entrySet().stream()
+                .sorted((a, b) -> {
+                    int compara = Integer.compare(b.getValue().getKw(), a.getValue().getKw());
+                    if (compara == 0) {
+                        return a.getKey().getName().compareTo(b.getKey().getName());
+                    }
+                    return compara;
+                })
+                .forEach(entry -> System.out.println(" *" + entry.getKey().getName() + " - Carregadores Totais: " + entry.getValue().getKw()));    }
 }

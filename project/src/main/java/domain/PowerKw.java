@@ -10,4 +10,5 @@ public class PowerKw {
     public int getKw() {
         return kw;
     }
+
 }
