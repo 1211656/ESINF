@@ -30,16 +30,37 @@ public class ReadSales implements Files {
     // (último ano - primeiro ano) / primeiro ano (numero de veículos)
     private void getEvolutionNumberVehicles(){
         int diferenca = 0;
+        int valor1 = -1;
+        int valor2 = -1;
+        int[] arrDifferenceYears = new int[2];
         System.out.println("Country | Difference\n");
         ArrayList<Country> countries = new ArrayList<>();
         for (Map.Entry<Sale,Integer> entry : map.entrySet()) {
             if(!searchForCountry(entry.getKey().getCountry(), countries)){
-                Map<Sale,Integer> map2 = getMapOfCountriesHighestAndLowestYear(entry.getKey().getCountry());
+                Map<Sale,Integer> map2 = getMapByYearsAndCountry(entry.getKey().getCountry(), getMapOfCountriesHighestAndLowestYear(entry.getKey().getCountry()),getMapOfCountries(entry.getKey().getCountry()));
                 for(Map.Entry<Sale,Integer> map3 : map2.entrySet()){
-                    diferenca = Math.abs(map3.getValue() - diferenca);
+                    if(valor1 ==-1){
+                        arrDifferenceYears[0] = map3.getKey().getYear();
+                        valor1 = map3.getValue();
+                    }
+                    else{
+                        if(valor2 == -1){
+                            arrDifferenceYears[1] = map3.getKey().getYear();
+                            valor2 = map3.getValue();
+                        }
+                    }
+
+                }
+
+                if(arrDifferenceYears[1]>arrDifferenceYears[0]){
+                    diferenca = valor2 - valor1;
+                }
+                else{
+                    diferenca = valor1 - valor2;
                 }
                 System.out.printf("%s | %d\n",entry.getKey().getCountry(),diferenca);
-                diferenca = 0;
+                valor1 = -1;
+                valor2 = -1;
                 countries.add(entry.getKey().getCountry());
             }
         }
@@ -66,25 +87,41 @@ public class ReadSales implements Files {
         return res;
     }
 
-    private Map<Sale,Integer> getMapOfCountriesHighestAndLowestYear(Country country){
+    private int[] getMapOfCountriesHighestAndLowestYear(Country country){
         Map<Sale,Integer> mapL = getMapOfCountries(country);
         int maxValue = 0, minValue = 100000;
-        Sale saleMin = null ,saleMax = null;
 
         for (Map.Entry<Sale,Integer> entry : mapL.entrySet()) {
             if(entry.getKey().getYear()>maxValue){
-                saleMax = entry.getKey();
                 maxValue = entry.getKey().getYear();
             }
             if(entry.getKey().getYear()<minValue){
-                saleMin = entry.getKey();
                 minValue = entry.getKey().getYear();
             }
         }
-        Map<Sale,Integer> res = new HashMap<>();
-        res.put(saleMin,mapL.get(saleMin));
-        res.put(saleMax,mapL.get(saleMax));
+        int[] res = new int[2];
+        res[0] = minValue;
+        res[1] = maxValue;
 
+        return res;
+    }
+
+    private Map<Sale,Integer> getMapByYearsAndCountry(Country country, int[] years, Map<Sale,Integer> map1){
+        int numberVehiclesMax = 0,numberVehiclesMin = 0;
+        Sale saleMax=null,saleMin=null;
+        Map<Sale,Integer> res = new HashMap<>();
+        for (Map.Entry<Sale,Integer> entry : map1.entrySet()){
+            if(years[0] == entry.getKey().getYear()){
+                numberVehiclesMin += entry.getValue();
+                saleMin=entry.getKey();
+            }
+            if(years[1] == entry.getKey().getYear()){
+                numberVehiclesMax += entry.getValue();
+                saleMax = entry.getKey();
+            }
+        }
+        res.put(saleMin,numberVehiclesMin);
+        res.put(saleMax,numberVehiclesMax);
         return res;
     }
 
