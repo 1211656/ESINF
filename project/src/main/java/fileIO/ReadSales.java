@@ -103,8 +103,6 @@ public class ReadSales implements Files {
         return false;
     }
 
-
-
     private Map<Sale,Integer> getMapByYearsAndCountry( int firstYear,int secondYear, Map<Sale,Integer> map1){
         int numberVehiclesMax = 0,numberVehiclesMin = 0;
         Sale saleMax=null,saleMin=null;

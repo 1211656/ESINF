@@ -1,8 +1,6 @@
 package fileIO;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,14 +31,9 @@ public class ReadFile {
                         System.out.println("e");
                     }
                 }
-
-
-
             }
 
-
-
-            return res;
+        return res;
         } catch (Exception e) {
             e.printStackTrace();
         }

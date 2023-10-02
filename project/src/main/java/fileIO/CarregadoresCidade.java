@@ -71,7 +71,7 @@ public class CarregadoresCidade implements Files {
     }
 
     // Função que divide a linha em campos usando a vírgula como delimitador, ignorando as vírgulas dentro de aspas.
-    private String[] splitCSVLine(String line) {
+    public static String[] splitCSVLine(String line) {
         List<String> campos = new ArrayList<>();
         StringBuilder campoAtual = new StringBuilder();
         boolean verificaAspas = false;

@@ -1,6 +1,8 @@
 package domain;
 
-public class Country {
+import org.apache.poi.ss.formula.functions.T;
+
+public class Country implements Comparable<Country>{
 
     private String name;
 
@@ -25,5 +27,10 @@ public class Country {
     @Override
     public String toString() {
         return String.format("%s",name);
+    }
+
+    @Override
+    public int compareTo(Country o) {
+        return this.name.compareTo( o.getName());
     }
 }
