@@ -1,7 +1,5 @@
 package domain;
 
-import repositories.Repositories;
-
 public class Sale {
 
     private String typeVehicle;
@@ -12,7 +10,6 @@ public class Sale {
         this.typeVehicle = typeVehicle;
         this.country = new Country(country);
         this.year = year;
-        Repositories.getSalesList().add(this);
     }
 
     public Country getCountry() {

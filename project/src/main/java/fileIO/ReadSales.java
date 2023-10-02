@@ -2,10 +2,8 @@ package fileIO;
 
 import domain.Country;
 import domain.Sale;
-import org.apache.poi.ss.formula.functions.Count;
-import repositories.Repositories;
 
-import java.io.File;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,54 +20,58 @@ public class ReadSales implements Files {
         matriz = ReadFile.readFile(SalesFile);
         map = new HashMap<>();
         objectAllocation();
-        getEvolutionNumberVehicles();
+
 
 
     }
 
+    // Método que faz print da lista de países e
     // (último ano - primeiro ano) / primeiro ano (numero de veículos)
-    private void getEvolutionNumberVehicles(){
-        int diferenca = 0;
+
+    public Map<Country,Double> getEvolutionNumberVehicles(int firstYear, int secondYear){
+        Map<Country,Double> res = new HashMap<>();
+        double diferenca ;
         int valor1 = -1;
         int valor2 = -1;
         int[] arrDifferenceYears = new int[2];
-        System.out.println("Country | Difference\n");
+        System.out.println("Country | Evolution\n");
         ArrayList<Country> countries = new ArrayList<>();
         for (Map.Entry<Sale,Integer> entry : map.entrySet()) {
-            if(!searchForCountry(entry.getKey().getCountry(), countries)){
-                Map<Sale,Integer> map2 = getMapByYearsAndCountry(entry.getKey().getCountry(), getMapOfCountriesHighestAndLowestYear(entry.getKey().getCountry()),getMapOfCountries(entry.getKey().getCountry()));
-                for(Map.Entry<Sale,Integer> map3 : map2.entrySet()){
-                    if(valor1 ==-1){
-                        arrDifferenceYears[0] = map3.getKey().getYear();
-                        valor1 = map3.getValue();
-                    }
-                    else{
-                        if(valor2 == -1){
-                            arrDifferenceYears[1] = map3.getKey().getYear();
-                            valor2 = map3.getValue();
+            if (!searchForCountry(entry.getKey().getCountry(), countries)) {
+                if (searchIfBothYearsAreInMap(firstYear,secondYear,entry.getKey().getCountry())) {
+                    Map<Sale, Integer> map2 = getMapByYearsAndCountry(firstYear, secondYear, getMapOfCountries(entry.getKey().getCountry()));
+                    for (Map.Entry<Sale, Integer> map3 : map2.entrySet()) {
+                        if (valor1 == -1) {
+                            arrDifferenceYears[0] = map3.getKey().getYear();
+                            valor1 = map3.getValue();
+                        } else {
+                            if (valor2 == -1) {
+                                arrDifferenceYears[1] = map3.getKey().getYear();
+                                valor2 = map3.getValue();
+                            }
                         }
+
                     }
 
+                    if (arrDifferenceYears[1] > arrDifferenceYears[0]) {
+                        diferenca = (double) (valor2 - valor1) / valor1;
+                    } else {
+                        diferenca = (double) (valor1 - valor2) / valor2;
+                    }
+                    System.out.printf("%s | %.2f\n", entry.getKey().getCountry(), diferenca);
+                    res.put(entry.getKey().getCountry(),diferenca);
+                    valor1 = -1;
+                    valor2 = -1;
+                    countries.add(entry.getKey().getCountry());
                 }
-
-                if(arrDifferenceYears[1]>arrDifferenceYears[0]){
-                    diferenca = valor2 - valor1;
-                }
-                else{
-                    diferenca = valor1 - valor2;
-                }
-                System.out.printf("%s | %d\n",entry.getKey().getCountry(),diferenca);
-                valor1 = -1;
-                valor2 = -1;
-                countries.add(entry.getKey().getCountry());
             }
         }
-
+        return res;
     }
 
     private boolean searchForCountry(Country country, ArrayList<Country> countries){
-        for (int i = 0; i < countries.size(); i++) {
-            if(countries.get(i).equals(country)){
+        for (Country value : countries) {
+            if (value.equals(country)) {
                 return true;
             }
         }
@@ -87,35 +89,32 @@ public class ReadSales implements Files {
         return res;
     }
 
-    private int[] getMapOfCountriesHighestAndLowestYear(Country country){
-        Map<Sale,Integer> mapL = getMapOfCountries(country);
-        int maxValue = 0, minValue = 100000;
-
-        for (Map.Entry<Sale,Integer> entry : mapL.entrySet()) {
-            if(entry.getKey().getYear()>maxValue){
-                maxValue = entry.getKey().getYear();
+    private boolean searchIfBothYearsAreInMap(int firstYear, int secondYear, Country country){
+        Map<Sale,Integer> mapThis = getMapOfCountries(country);
+        int years = 0;
+        for(Map.Entry<Sale,Integer> entry : mapThis.entrySet()){
+            if(entry.getKey().getYear()==firstYear || entry.getKey().getYear()==secondYear){
+                years ++;
             }
-            if(entry.getKey().getYear()<minValue){
-                minValue = entry.getKey().getYear();
+            if(years == 2){
+                return true;
             }
         }
-        int[] res = new int[2];
-        res[0] = minValue;
-        res[1] = maxValue;
-
-        return res;
+        return false;
     }
 
-    private Map<Sale,Integer> getMapByYearsAndCountry(Country country, int[] years, Map<Sale,Integer> map1){
+
+
+    private Map<Sale,Integer> getMapByYearsAndCountry( int firstYear,int secondYear, Map<Sale,Integer> map1){
         int numberVehiclesMax = 0,numberVehiclesMin = 0;
         Sale saleMax=null,saleMin=null;
         Map<Sale,Integer> res = new HashMap<>();
         for (Map.Entry<Sale,Integer> entry : map1.entrySet()){
-            if(years[0] == entry.getKey().getYear()){
+            if(firstYear == entry.getKey().getYear()){
                 numberVehiclesMin += entry.getValue();
                 saleMin=entry.getKey();
             }
-            if(years[1] == entry.getKey().getYear()){
+            if(secondYear == entry.getKey().getYear()){
                 numberVehiclesMax += entry.getValue();
                 saleMax = entry.getKey();
             }
@@ -125,19 +124,14 @@ public class ReadSales implements Files {
         return res;
     }
 
-
-
-
-
-
     private void objectAllocation(){
-        for (int i = 0; i < matriz.length; i++) {
-            if(matriz[i][0]==null){
+        for (String[] strings : matriz) {
+            if (strings[0] == null) {
                 break;
             }
-            try{
-                map.put(new Sale(matriz[i][1],matriz[i][0],Integer.parseInt(matriz[i][2])),Integer.parseInt(matriz[i][3]));
-            }catch (Exception e){
+            try {
+                map.put(new Sale(strings[1], strings[0], Integer.parseInt(strings[2])), Integer.parseInt(strings[3]));
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
