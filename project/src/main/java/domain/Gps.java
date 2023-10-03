@@ -37,10 +37,10 @@ public class Gps implements Comparable<Gps>{
 
         double difLatitude = (lat2-lat1);
         double difLongitude =  (lon2-lon1);
-
-        double a = Math.pow(Math.sin(difLatitude/2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(difLongitude/2), 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
+        double a = Math.pow((Math.sin(difLatitude/2)),2) +
+                   Math.cos(lat1) * Math.cos(lat2) *
+                   Math.pow(Math.sin(difLongitude/2),2);
+        double c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
         return Math.round(RADIUS_EARTH*c);
     }
 
