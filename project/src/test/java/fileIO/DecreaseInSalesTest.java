@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 public class DecreaseInSalesTest {
 
+    //! Falta assert
     @Test
     void test1(){
         DecreaseInSales decreaseInSales = new DecreaseInSales();
