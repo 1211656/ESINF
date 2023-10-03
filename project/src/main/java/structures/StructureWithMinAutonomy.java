@@ -16,7 +16,7 @@ public class StructureWithMinAutonomy implements Files {
     private Map<Gps,Country> mapGeneral;
 
 
-    private SortedMap<Gps,Country> listCountry;
+    private SortedMap<Gps,Country> sortedMap;
 
     public StructureWithMinAutonomy(Map<Gps,Country> mapGeneral){
         this.mapGeneral = mapGeneral;
@@ -35,6 +35,25 @@ public class StructureWithMinAutonomy implements Files {
             }
         }
         return mapCountry;
+    }
+
+
+    // método que me dá uma lista com as coordenadas cuja distancia entre elas é maior
+    private List<Gps> getHighestDistanceBetweenChargersInCountry(List<Gps> gpsList){
+        Gps gps1 = null;
+        Gps gps2 = null;
+        double distancia=0;
+        List<Gps> ret = new ArrayList<>();
+        for (int i = 0; i < gpsList.size()-1; i++) {
+            if(gpsList.get(i).getDistanceBetweenTwoChargers(gpsList.get(i+1))>distancia){
+                distancia = gpsList.get(i).getDistanceBetweenTwoChargers(gpsList.get(i+1));
+                gps1 = gpsList.get(i);
+                gps2 = gpsList.get(i+1);
+            }
+        }
+        ret.add(gps1);
+        ret.add(gps2);
+        return ret;
     }
 
 

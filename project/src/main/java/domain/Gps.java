@@ -30,11 +30,17 @@ public class Gps implements Comparable<Gps>{
 
     // getting the distance between two gps
     public double getDistanceBetweenTwoChargers(Gps other){
-        double difLatitude = this.latitude - other.latitude;
-        double difLongitude = this.longitude - other.longitude;
-        double a = Math.pow(Math.sin(difLatitude/2),2) + Math.cos(this.latitude)*Math.cos(this.longitude)*Math.pow(Math.sin(difLongitude/2),2);
-        double c = 2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
-        return RADIUS_EARTH*c;
+        double lat1 = Math.toRadians(this.latitude);
+        double lat2 = Math.toRadians(other.latitude);
+        double lon1 = Math.toRadians(this.longitude);
+        double lon2 = Math.toRadians(other.longitude);
+
+        double difLatitude = (lat1-lat2);
+        double difLongitude =  (lon1-lon2);
+        double a = (Math.sin(difLatitude/2)*(Math.sin(difLatitude/2)
+                + Math.cos(lat1)*Math.cos(lat2)*Math.pow(Math.sin(difLongitude/2),2)));
+        double c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+        return (RADIUS_EARTH*c);
     }
 
     @Override

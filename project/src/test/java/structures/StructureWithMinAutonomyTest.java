@@ -24,9 +24,11 @@ class StructureWithMinAutonomyTest implements Files {
 
         // guarda a matriz dos dados
         LinkedHashMap<Gps,Country> res  = ReadCarregadores.readFile(Teste);
+        System.out.println("Keys    ->     Values");
         for(SortedMap.Entry<Gps,Country> entry : res.entrySet()){
-            System.out.printf("%s -> %.5f , %.5f\n",entry.getValue(), entry.getKey().getLatitude(),entry.getKey().getLongitude());
+            System.out.printf("%.5f , %.5f -> %s\n", entry.getKey().getLatitude(),entry.getKey().getLongitude(), entry.getValue());
         }
+
 
 
 
