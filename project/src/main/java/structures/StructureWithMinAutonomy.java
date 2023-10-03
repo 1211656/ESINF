@@ -1,47 +1,46 @@
 package structures;
 
 import domain.Country;
+import domain.Gps;
 import fileIO.Files;
 import fileIO.ReadFile;
+import org.apache.commons.collections4.list.TreeList;
 import org.apache.poi.ss.formula.functions.Count;
 
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.*;
 
 public class StructureWithMinAutonomy implements Files {
 
 
     // matriz que contem os dados do ficheiro
-    private String[][] matriz;
-    private SortedMap<Country,String> map = new TreeMap<>();
-    public StructureWithMinAutonomy(String[][] matriz){
-        this.matriz = matriz;
-        map = allocateObjectsThatAreInMatrix();
+    private Map<Gps,Country> mapGeneral;
+
+
+    private SortedMap<Gps,Country> listCountry;
+
+    public StructureWithMinAutonomy(Map<Gps,Country> mapGeneral){
+        this.mapGeneral = mapGeneral;
     }
 
-    public SortedMap<Country, String> getMap() {
-        return map;
+    public Map<Gps,Country> getMapGeneral() {
+        return mapGeneral;
     }
 
-    //allocates the Objects (creating them using the string that ar in the matrix), using a sortedMap to sort alphabetically or descendent
-    private SortedMap<Country,String> allocateObjectsThatAreInMatrix(){
-        int stay = 0;
-        while (stay==0){
-            for (int i = 0; i < matriz.length; i++) {
-                if (matriz[i][6] == null) {
-                    stay = -1;
+    private Map<Gps,Country> getMapByCountry(Country country){
+        SortedMap<Gps,Country> mapCountry = new TreeMap<>();
 
-                }
-                else{
-                    System.out.println(matriz[i][6]);
-                    map.put(new Country(matriz[i][6]), matriz[i][9] + matriz[i][10]);
-                }
+        for(Map.Entry<Gps,Country> entry : mapGeneral.entrySet()){
+            if(entry.getValue().equals(country)){
+                mapCountry.put(entry.getKey(),entry.getValue());
             }
-
         }
-        return map;
+        return mapCountry;
     }
+
+
+
+
+
 
 
 }

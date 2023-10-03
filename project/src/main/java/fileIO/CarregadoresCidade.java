@@ -43,7 +43,6 @@ public class CarregadoresCidade implements Files {
 
 
 
-
                 // verificar se já existe o país
                 if(searchForCountryInMap(country)){
                     // verificar se já existe a cidade
