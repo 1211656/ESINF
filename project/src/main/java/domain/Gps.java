@@ -46,7 +46,7 @@ public class Gps implements Comparable<Gps>{
                    Math.cos(lat1) * Math.cos(lat2) *
                    Math.pow(Math.sin(difLongitude/2),2);
         double c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
-        return Math.round(RADIUS_EARTH*c);
+        return (RADIUS_EARTH*c);
     }
 
     @Override

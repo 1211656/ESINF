@@ -1,6 +1,6 @@
 package utils;
 
-import domain.Gps;
+import java.util.*;
 
 public class Utils {
 
@@ -14,5 +14,16 @@ public class Utils {
         }
         // "62.073923, 9.125562"
         return res;
+    }
+    public static <K extends Comparable<? super K>,V>LinkedHashMap<K,V> ordenateMapAlphabeticallyKey(Map<K,V> map){
+        List<Map.Entry<K, V>> listaDeEntradas = new ArrayList<>(map.entrySet());
+        Collections.sort(listaDeEntradas, (entry1,entry2) -> entry1.getKey().compareTo(entry2.getKey()));
+
+        // Crie um novo mapa ordenado
+        LinkedHashMap<K, V> mapaOrdenado = new LinkedHashMap<>();
+        for (Map.Entry<K, V> entry : listaDeEntradas) {
+            mapaOrdenado.put(entry.getKey(), entry.getValue());
+        }
+        return mapaOrdenado;
     }
 }

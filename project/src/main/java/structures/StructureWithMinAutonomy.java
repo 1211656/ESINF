@@ -64,7 +64,7 @@ public class StructureWithMinAutonomy implements Files {
     public LinkedHashMap<Country,Double> getFinalMap(){
         LinkedHashMap<Country,Double> finalMap = new LinkedHashMap<>();
         for (Map.Entry<Gps,Country> entry : mapGeneral.entrySet()) {
-            if (!finalMap.containsKey(entry.getValue())) {
+            if (!findKeyInMapByString(entry.getValue().toString(),finalMap)) {
                 Map<Gps, Country> countryMap = getMapByCountry(entry.getValue());
                 List<Gps> gpsList = getListOfGpsByMapCountry(countryMap);
                 finalMap.put(entry.getValue(), getHighestDistanceBetweenChargersInCountry(gpsList));
@@ -72,6 +72,15 @@ public class StructureWithMinAutonomy implements Files {
 
         }
         return finalMap;
+    }
+
+    public boolean findKeyInMapByString(String key,LinkedHashMap<Country,Double> finalMap){
+        for(Map.Entry<Country,Double> entry : finalMap.entrySet()){
+            if(entry.getKey().toString().equalsIgnoreCase(key)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public LinkedHashMap<Country,Double> ordenateMap(LinkedHashMap<Country,Double> sortedMap){
@@ -86,6 +95,21 @@ public class StructureWithMinAutonomy implements Files {
         }
         return res;
     }
+    public LinkedHashMap<Country,Double> ordenateMap2(LinkedHashMap<Country,Double> sortedMap){
+        List<Map.Entry<Country,Double>> listaEntradas = new ArrayList<>(sortedMap.entrySet());
+        Collections.sort(listaEntradas,(entry1, entry2) -> {
+            int comparacaoPorValor = Double.compare(entry2.getValue(),entry1.getValue());
+            if(comparacaoPorValor==0){
+                return entry1.getKey().compareTo(entry2.getKey());
+            }
+            return comparacaoPorValor;
+        });
+        LinkedHashMap<Country, Double> mapaOrdenado = new LinkedHashMap<>();
+        for (Map.Entry<Country, Double> entry : listaEntradas) {
+            mapaOrdenado.put(entry.getKey(), entry.getValue());
+        }
+        return mapaOrdenado;
+    }
 
     public Country getCountryByDouble(Map<Country,Double> sortedMap, Double value){
         for(Map.Entry<Country,Double> entry : sortedMap.entrySet()){
@@ -96,19 +120,19 @@ public class StructureWithMinAutonomy implements Files {
         return null;
     }
 
-    public SortedMap<Country,Double> getListOFSameDistanceValues(TreeMap<Country,Double> tree, double distance){
-        SortedMap<Country,Double> ret = new TreeMap<>();
+    public LinkedHashMap<Country,Double> getListOFSameDistanceValues(LinkedHashMap<Country,Double> linked, double distance){
+       LinkedHashMap<Country,Double> ret = new LinkedHashMap<>();
         List<Country> countries = new ArrayList<>();
-        for(Map.Entry<Country,Double> entry : tree.entrySet()){
+        for(Map.Entry<Country,Double> entry : linked.entrySet()){
             if(entry.getValue()==distance){
                 ret.put(entry.getKey(),entry.getValue());
                 countries.add(entry.getKey());
             }
         }
-
-
         return ret;
     }
+
+
 
 
 

@@ -8,10 +8,11 @@ class GpsTest {
 
     @Test
     void getDistanceBetweenTwoChargers() {
-        Gps gps1 = new Gps(68.40711,18.67638);
-        Gps gps2 = new Gps(59.42631,15.82768);
+        Gps gps1 = new Gps(1515,1515);
+        Gps gps2 = new Gps(1212,1313);
+        Gps gps3 = new Gps(1414,1414);
 
-        double expected = 1008;
+        double expected = 6242;
         assertEquals(expected,gps1.getDistanceBetweenTwoChargers(gps2));
 
     }

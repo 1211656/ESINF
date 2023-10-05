@@ -6,6 +6,7 @@ import fileIO.Files;
 import fileIO.ReadCarregadores;
 import fileIO.ReadFile;
 import org.junit.jupiter.api.Test;
+import utils.Utils;
 
 import java.io.IOException;
 import java.util.*;
@@ -65,7 +66,7 @@ class StructureWithMinAutonomyTest implements Files {
 
     @Test
     void getFinalMap() {
-        LinkedHashMap<Country,Double> mapFinal = structureWithMinAutonomy.ordenateMap(structureWithMinAutonomy.getFinalMap());
+        LinkedHashMap<Country,Double> mapFinal = structureWithMinAutonomy.ordenateMap2(structureWithMinAutonomy.getFinalMap());
 
         for(Map.Entry<Country,Double> entry : mapFinal.entrySet()){
             System.out.printf("%s -> %.2f\n", entry.getKey(),entry.getValue());
@@ -79,4 +80,6 @@ class StructureWithMinAutonomyTest implements Files {
             System.out.println(gpsList.get(i));
         }
     }
+
+
 }
