@@ -1,5 +1,7 @@
 package utils;
 
+import domain.Gps;
+
 public class Utils {
 
     public static Double[] stringToDoubleGPS(String gps){
