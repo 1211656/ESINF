@@ -27,13 +27,3 @@ public class ReadChargersFile {
         return superchargerList;
     }
 }
-
-/*
-public Supercharger(String countryName, String stateName, String cityName, String streetAddress, String zipCode, Stalls stalls, PowerKw powerKw, Elevm elevm, String gpsCoordinates, String description) {
-        this.address = new Address(countryName,stateName,cityName,streetAddress,zipCode, gpsCoordinates);
-        this.stalls = stalls;
-        this.powerKw = powerKw;
-        this.elevm = elevm;
-        this.description = description;
-    }
- */

@@ -23,4 +23,8 @@ public class Address {
     public Gps getGpsCoordinates(){
         return this.gpsCoordinates;
     }
+
+    public Country getCountry() {
+        return country;
+    }
 }
