@@ -26,11 +26,12 @@ public class StructureWithMinAutonomy implements Files {
         return mapGeneral;
     }
 
-    private Map<Gps,Country> getMapByCountry(Country country){
-        SortedMap<Gps,Country> mapCountry = new TreeMap<>();
+    public Map<Gps,Country> getMapByCountry(Country country){
+        Map<Gps,Country> mapCountry = new HashMap<>();
 
         for(Map.Entry<Gps,Country> entry : mapGeneral.entrySet()){
-            if(entry.getValue().equals(country)){
+            if(entry.getValue().toString().equals(country.toString())){
+
                 mapCountry.put(entry.getKey(),entry.getValue());
             }
         }
@@ -39,22 +40,88 @@ public class StructureWithMinAutonomy implements Files {
 
 
     // método que me dá uma lista com as coordenadas cuja distancia entre elas é maior
-    private List<Gps> getHighestDistanceBetweenChargersInCountry(List<Gps> gpsList){
+    public double getHighestDistanceBetweenChargersInCountry(List<Gps> gpsList){
         Gps gps1 = null;
         Gps gps2 = null;
         double distancia=0;
+        int index = 0;
         List<Gps> ret = new ArrayList<>();
-        for (int i = 0; i < gpsList.size()-1; i++) {
-            if(gpsList.get(i).getDistanceBetweenTwoChargers(gpsList.get(i+1))>distancia){
-                distancia = gpsList.get(i).getDistanceBetweenTwoChargers(gpsList.get(i+1));
-                gps1 = gpsList.get(i);
-                gps2 = gpsList.get(i+1);
+        while(index != gpsList.size()-1) {
+            for (int i = index; i < gpsList.size() - 1; i++) {
+                if (gpsList.get(i).getDistanceBetweenTwoChargers(gpsList.get(i + 1)) > distancia) {
+                    distancia = gpsList.get(index).getDistanceBetweenTwoChargers(gpsList.get(i + 1));
+                    gps1 = gpsList.get(index);
+                    gps2 = gpsList.get(i + 1);
+                }
             }
+            index ++;
         }
         ret.add(gps1);
         ret.add(gps2);
+        return distancia;
+    }
+
+    public LinkedHashMap<Country,Double> getFinalMap(){
+        LinkedHashMap<Country,Double> finalMap = new LinkedHashMap<>();
+        for (Map.Entry<Gps,Country> entry : mapGeneral.entrySet()) {
+            if (!finalMap.containsKey(entry.getValue())) {
+                Map<Gps, Country> countryMap = getMapByCountry(entry.getValue());
+                List<Gps> gpsList = getListOfGpsByMapCountry(countryMap);
+                finalMap.put(entry.getValue(), getHighestDistanceBetweenChargersInCountry(gpsList));
+            }
+
+        }
+        return finalMap;
+    }
+
+    public LinkedHashMap<Country,Double> ordenateMap(LinkedHashMap<Country,Double> sortedMap){
+        List<Double> values = new ArrayList<>(sortedMap.values());
+        Collections.sort(values,Collections.reverseOrder());
+        LinkedHashMap<Country,Double> res = new LinkedHashMap<>();
+        int i = 0;
+        for(Map.Entry<Country,Double> entry : sortedMap.entrySet()){
+
+            res.put(getCountryByDouble(sortedMap,values.get(i)),values.get(i));
+            i ++;
+        }
+        return res;
+    }
+
+    public Country getCountryByDouble(Map<Country,Double> sortedMap, Double value){
+        for(Map.Entry<Country,Double> entry : sortedMap.entrySet()){
+            if(entry.getValue()==value){
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
+    public SortedMap<Country,Double> getListOFSameDistanceValues(TreeMap<Country,Double> tree, double distance){
+        SortedMap<Country,Double> ret = new TreeMap<>();
+        List<Country> countries = new ArrayList<>();
+        for(Map.Entry<Country,Double> entry : tree.entrySet()){
+            if(entry.getValue()==distance){
+                ret.put(entry.getKey(),entry.getValue());
+                countries.add(entry.getKey());
+            }
+        }
+
+
         return ret;
     }
+
+
+
+
+    public List<Gps> getListOfGpsByMapCountry(Map<Gps,Country> map){
+        List<Gps> gpsList = new ArrayList<>();
+        for(Map.Entry<Gps,Country> entry : map.entrySet()){
+            gpsList.add(entry.getKey());
+        }
+        return gpsList;
+    }
+
+
 
 
 

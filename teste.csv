@@ -1,10 +1,10 @@
-Supercharger,StreetAddress,City,State,Zip,Country,Stalls,kW,GPS,Elevm,Status
-Bjšrkliden, Sweden,BjšrklidenvŠgen 70,Bjšrkliden,Lappland,981 93,Sweden,3,250,"68.407105, 18.676377",471,Open
-Nottingham - Victoria Centre, UK,Glasshouse Street,Nottingham,,NG1 3QN,United Kingdom,12,250,"52.957009, -1.147388",44,Open
-Pfaffenhofen, Germany,Siebenecken 1,Pfaffenhofen an der Ilm,Bavaria,85276,Germany,24,250,"48.518159, 11.562124",500,Open
-Beaune, France,"Mercure Beaune Centre 7 Ave, Charles de Gaulle",Beaune,Bourgogne-Franche-ComtŽ,21200,France,12,150,"47.017089, 4.836543",210,Open
-Aichstetten, Germany,Am Waizenhof 12 (Autohof),Aichstetten,Baden-WŸrttemberg,88317,Germany,8,130,"47.88036, 10.040488",630,Open
-London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,,SE10 0TW,United Kingdom,12,150,"51.5023724, -0.0018343",7,Open
-DombŒs, Norway,"FrichgŒrden,Sentralplassen 1C, behind KIWI Mini Pris",DombŒs,Innlandet,2660,Norway,24,250,"62.073923, 9.125562",659,Open
-Arboga, Sweden,BurskapsvŠgen 1,Arboga,VŠstmanland,732 95,Sweden,14,150,"59.426307, 15.827684",20,Open
-Wilnsdorf, Germany,Elkersberg 2 (Autohof),Wilnsdorf,North Rhine-Westphalia,57234,Germany,8,130,"50.816873, 8.08576",436,Open
+
+London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,,SE10 0TW,Portugal,12,150,"20, 10",7,Open
+London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,,SE10 0TW,Portugal  ,12,150,"5, 15",7,Open
+London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,,SE10 0TW,Portugal,12,150,"2, 3",7,Open
+London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,,SE10 0TW,Sweden,12,150,"2, 9",7,Open
+London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,,SE10 0TW,Sweden,12,150,"8, 20",7,Open
+London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,,SE10 0TW,Sweden,12,150,"10, 10",7,Open
+London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,,SE10 0TW,Brazil,12,150,"2, 20",7,Open
+London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,,SE10 0TW,Portugal,12,150,"5, 3",7,Open
+

@@ -28,6 +28,11 @@ public class Gps implements Comparable<Gps>{
         return coordinates;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Latitude : %.7f\nLongitude : %.7f",latitude,longitude);
+    }
+
     // getting the distance between two gps
     public double getDistanceBetweenTwoChargers(Gps other){
         double lat1 = Math.toRadians(this.latitude);

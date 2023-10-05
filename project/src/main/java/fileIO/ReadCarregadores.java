@@ -15,12 +15,13 @@ public class ReadCarregadores {
     public static LinkedHashMap<Gps,Country> readFile(File file) throws IOException{
         String[] campos = null;
         LinkedHashMap<Gps,Country> res = new LinkedHashMap<>();
+
         try{
             BufferedReader br = new BufferedReader(new FileReader(file));
             String linha ;
             br.readLine();
 
-            while((linha = br.readLine())!=null){
+            while((linha = br.readLine())!=null&&!linha.equals("")){
                 campos = CarregadoresCidade.splitCSVLine(linha);
 
                 try{
