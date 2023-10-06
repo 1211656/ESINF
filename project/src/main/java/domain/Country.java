@@ -2,6 +2,8 @@ package domain;
 
 import org.apache.poi.ss.formula.functions.T;
 
+import java.util.Objects;
+
 public class Country implements Comparable<Country>{
 
     private String name;
@@ -32,5 +34,22 @@ public class Country implements Comparable<Country>{
     @Override
     public int compareTo(Country o) {
         return this.name.compareTo( o.getName());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Country other = (Country) obj;
+        return name.equals(other.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

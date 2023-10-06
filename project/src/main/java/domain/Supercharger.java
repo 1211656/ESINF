@@ -14,8 +14,8 @@ public class Supercharger {
     private Elevm elevm;
     private Status status;
 
-    public Supercharger(String countryName, String stateName, String cityName, String streetAddress, String zipCode, Stalls stalls, PowerKw powerKw, Elevm elevm,Status status) {
-        this.address = new Address(countryName,stateName,cityName,streetAddress,zipCode);
+    public Supercharger(String countryName, String stateName, String cityName, String streetAddress, String zipCode, Stalls stalls, PowerKw powerKw, Elevm elevm,Status status,String gps) {
+        this.address = new Address(countryName,stateName,cityName,streetAddress,zipCode,gps);
         this.stalls = stalls;
         this.powerKw = powerKw;
         this.elevm = elevm;
@@ -36,11 +36,11 @@ public class Supercharger {
     public Stalls getStalls() {
         return stalls;
     }
-    
+
     public PowerKw getPowerKw() {
         return powerKw;
     }
-    
+
     public Elevm getElevm() {
         return elevm;
     }

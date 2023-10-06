@@ -5,11 +5,13 @@ public class Sale {
     private String typeVehicle;
     private Country country;
     private int year;
+    private int vehiclesSold;
 
-    public Sale( String typeVehicle, String country, int year) {
+    public Sale( String typeVehicle, String country, String year, String vehiclesSold) {
         this.typeVehicle = typeVehicle;
         this.country = new Country(country);
-        this.year = year;
+        this.year = Integer.parseInt(year);
+        this.vehiclesSold = Integer.parseInt(vehiclesSold);
     }
 
     public Country getCountry() {
@@ -24,8 +26,11 @@ public class Sale {
         return typeVehicle;
     }
 
+    public int getVehiclesSold() {
+        return vehiclesSold;
+    }
     @Override
     public String toString() {
-        return String.format("Country: %s | Type : %s | Year : %d |\n",country.toString(),typeVehicle,year);
+        return String.format("Country: %s | Type : %s | Year : %d | Vehicles Sold: %d |\n",country.toString(),typeVehicle,year);
     }
 }

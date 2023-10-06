@@ -1,9 +1,37 @@
 country,powertrain,year,number_of_vehicles
-Australia, BEV, 2011, 5
-Australia, BEV, 2012, 4
-Australia, POV, 2011, 4
-Australia, POV, 2012, 3
-Portugal , BEV, 2011, 6
-Portugal , BEV, 2012, 5
-Portugal , BEV, 2013, 4
-Portugal , BEV, 2014, 1
+Portugal ; BEV; 2011; 6
+Portugal ; PHEV; 2011; 1
+Portugal ; BEV; 2012; 5
+Portugal ; PHEV; 2012; 9
+Portugal ; BEV; 2013; 4
+Portugal ; PHEV; 2013; 12
+Portugal ; BEV; 2014; 1
+Portugal ; PHEV; 2014; 5
+Spain ; BEV; 2011; 15
+Spain ; PHEV; 2011; 1
+Spain ; BEV; 2012; 11
+Spain ; PHEV; 2012; 22
+United Kingdom ; BEV; 2011; 21
+United Kingdom ; PHEV; 2011; 25
+United Kingdom ; BEV; 2012; 22
+United Kingdom ; PHEV; 2012; 13
+France ; BEV; 2011; 14
+France ; PHEV; 2011; 16
+France ; BEV; 2012; 12
+France ; PHEV; 2012; 17
+Germany ; BEV; 2011; 15
+Germany ; PHEV; 2011; 16
+Germany ; BEV; 2012; 12
+Germany ; PHEV; 2012; 17
+Netherlands ; BEV; 2011; 15
+Netherlands ; PHEV; 2011; 12
+Netherlands ; BEV; 2012; 11
+Netherlands ; PHEV; 2012; 8
+Italy ; BEV; 2011; 21
+Italy ; PHEV; 2011; 25
+Italy ; BEV; 2012; 22
+Italy ; PHEV; 2012; 26
+Belgium ; BEV; 2011; 6
+Belgium ; PHEV; 2011; 1
+Belgium ; BEV; 2012; 5
+Belgium ; PHEV; 2012; 9

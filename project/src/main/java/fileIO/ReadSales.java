@@ -128,7 +128,7 @@ public class ReadSales implements Files {
                 break;
             }
             try {
-                map.put(new Sale(strings[1], strings[0], Integer.parseInt(strings[2])), Integer.parseInt(strings[3]));
+                //map.put(new Sale(strings[1], strings[0], Integer.parseInt(strings[2])), Integer.parseInt(strings[3]));
             } catch (Exception e) {
                 e.printStackTrace();
             }

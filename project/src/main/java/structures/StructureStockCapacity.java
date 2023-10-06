@@ -62,11 +62,11 @@ public class StructureStockCapacity implements Files {
                 status = true;
             }
             try{
-                new Supercharger(data[i][6],data[i][4],data[i][3],data[i][2],data[i][5]
+               /** new Supercharger(data[i][6],data[i][4],data[i][3],data[i][2],data[i][5]
                         ,new Stalls(Integer.parseInt(data[i][7]))
                         ,new PowerKw(Integer.parseInt(data[i][8]))
                         ,new Elevm(Integer.parseInt(data[i][10]))
-                        ,new Status(status));
+                        ,new Status(status));*/
             }catch (NumberFormatException e){
                 e.printStackTrace();
                 return false;
