@@ -15,6 +15,8 @@ public class Utils {
         // "62.073923, 9.125562"
         return res;
     }
+
+    // ordena qualquer mapa alfabeticamente pela chave
     public static <K extends Comparable<? super K>,V>LinkedHashMap<K,V> ordenateMapAlphabeticallyKey(Map<K,V> map){
         List<Map.Entry<K, V>> listaDeEntradas = new ArrayList<>(map.entrySet());
         Collections.sort(listaDeEntradas, (entry1,entry2) -> entry1.getKey().compareTo(entry2.getKey()));
@@ -26,4 +28,15 @@ public class Utils {
         }
         return mapaOrdenado;
     }
+
+    // método que ordena alfabeticamente uma lista
+    public static <T extends Comparable<? super T>> boolean ordenarListaAlfabeticamente(List<T> lista){
+        try{
+            Collections.sort(lista);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+
 }

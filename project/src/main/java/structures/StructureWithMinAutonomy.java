@@ -133,10 +133,6 @@ public class StructureWithMinAutonomy implements Files {
     }
 
 
-
-
-
-
     public List<Gps> getListOfGpsByMapCountry(Map<Gps,Country> map){
         List<Gps> gpsList = new ArrayList<>();
         for(Map.Entry<Gps,Country> entry : map.entrySet()){

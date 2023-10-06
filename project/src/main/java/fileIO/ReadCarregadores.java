@@ -42,5 +42,58 @@ public class ReadCarregadores {
 
     }
 
+    public static String[][] readFileToArray(File file)throws IOException{
+        String[] campos = null;
+        String[][] res = new String[getNumberLinesOfFile(file)][getNumberOfColumnsFile(file)];
+        boolean sair = false;
+        while(sair == false){
+            try{
+                int index = 0;
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String linha;
+                br.readLine();
+
+                while((linha = br.readLine())!=null&&!linha.equals("")){
+                    campos = CarregadoresCidade.splitCSVLine(linha);
+                    res[index] = campos;
+                    index ++;
+                }
+
+                sair = true;
+
+
+            }catch(FileNotFoundException e){
+                e.printStackTrace();
+            }
+        }
+        return res;
+    }
+
+    public static int getNumberLinesOfFile(File file) throws IOException{
+        BufferedReader br = new BufferedReader(new FileReader(file));
+
+        int contadorLinhas = 0;
+        br.readLine();
+        while( br.readLine()!=null){
+            contadorLinhas ++;
+        }
+        return contadorLinhas-1;
+    }
+
+    public static int getNumberOfColumnsFile(File file) throws IOException{
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        int contadorColunas = 0;
+        String[] campos;
+        br.readLine();
+        String linha;
+        while( ( linha =br.readLine())!=null){
+            campos = CarregadoresCidade.splitCSVLine(linha);
+            if(contadorColunas< campos.length){
+                contadorColunas = campos.length;
+            }
+        }
+        return contadorColunas;
+    }
+
 
 }

@@ -14,4 +14,25 @@ public class Address {
         this.streetAdress=new StreetAdress(streetAddress);
         this.zip=new Zip(zipCode);
     }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public StreetAdress getStreetAdress() {
+        return streetAdress;
+    }
+
+    public Zip getZip() {
+        return zip;
+    }
+
 }

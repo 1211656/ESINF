@@ -7,4 +7,5 @@ public class State {
     public State(String name){
         this.name=name;
     }
+
 }
