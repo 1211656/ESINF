@@ -6,7 +6,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ReadFile {
-
+    /**
+     * @param file
+     * @return matriz de dados ddo tipo String[][] que contém informação do ficheiro CSV sales
+     */
     public static String[][] readFile(File file){
         String[] campos = null;
         String[][] res = new String[3000][4];

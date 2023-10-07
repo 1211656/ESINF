@@ -15,31 +15,19 @@ public class ReadCarregadores {
      * @return map where the information of a gps and country are encountered from the chargers file
      * @throws IOException
      */
-    public static LinkedHashMap<Gps,Country> readFile(File file) throws IOException{
+    public static LinkedHashMap<Gps,Country> readFile(String[][] matriz) throws IOException{
         String[] campos = null;
         LinkedHashMap<Gps,Country> res = new LinkedHashMap<>();
-
-        try{
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String linha ;
-            br.readLine();
-
-            while((linha = br.readLine())!=null&&!linha.equals("")){
-                campos = UtilsFile.splitCSVLine(linha);
-
-                try{
-                    Country country = new Country(campos[6].trim());
-                    Double[] arrGPS = Gps.stringToDoubleGPS(campos[9]);
-                    Gps gps = new Gps(arrGPS[0],arrGPS[1]);
-                    res.put(gps,country);
-
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
+        for (int i = 0; i < matriz.length; i++) {
+            Country country = new Country(matriz[i][6].trim());
+            Double[] arrGPS = Gps.stringToDoubleGPS(matriz[i][9]);
+            //Gps gps = new Gps(matriz[i][9]);
         }
+        Country country = new Country(campos[6].trim());
+        Double[] arrGPS = Gps.stringToDoubleGPS(campos[9]);
+        Gps gps = new Gps(arrGPS[0],arrGPS[1]);
+        res.put(gps,country);
+
 
         return  res;
 

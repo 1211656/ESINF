@@ -101,4 +101,33 @@ public class UtilsFile {
         }
         return res;
     }
+
+    /**
+     * @param file
+     * @return matriz dos dados que recebe do ficheiro CSV Sales
+     * @throws IOException
+     */
+    public static String[][] readFileToArraySale(File file)throws IOException{
+        String[][] res = new String[getNumberLinesOfFile(file)][getNumberOfColumnsFile(file)];
+        boolean sair = false;
+        String[] campos = null;
+        while(sair == false){
+            try{
+                int index = 0;
+                BufferedReader br = new BufferedReader(new FileReader(file));
+
+                String linha;
+                br.readLine();
+                while((linha = br.readLine())!=null&&!linha.equals("")){
+                    campos = linha.split(",");
+                    res[index] = campos;
+                    index ++;
+                }
+
+                sair = true;
+
+            }catch (FileNotFoundException e) {e.printStackTrace();}
+        }
+        return res;
+    }
 }
