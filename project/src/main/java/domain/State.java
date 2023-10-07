@@ -8,4 +8,10 @@ public class State {
         this.name=name;
     }
 
+    @Override
+    public String toString() {
+        return String.format("State{" +
+                "name='" + name + '\'' +
+                '}');
+    }
 }

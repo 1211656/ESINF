@@ -21,9 +21,9 @@ class StructureStockCapacityTest {
     void buscarEstadosComMaisCapacidadeArmazenamento() {
         List<Country> paises = new ArrayList<>();
         paises.add(new Country("Portugal"));
-        List<Supercharger> superchargers = structureStockCapacity.buscarEstadosComMaisCapacidadeArmazenamento(paises,2);
+        List<Supercharger> superchargers = structureStockCapacity.buscarEstadosComMaisCapacidadeArmazenamento(paises,4);
         for (int i = 0; i < superchargers.size(); i++) {
-            System.out.println(superchargers);
+            System.out.println(superchargers.get(i).getCapacidadeArmazenamento());
         }
     }
 

@@ -10,4 +10,11 @@ public class StreetAdress {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return "StreetAdress{" +
+                "description='" + description + '\'' +
+                '}';
+    }
 }

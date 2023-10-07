@@ -22,5 +22,6 @@ class CountryTest {
         Country country1 = new Country("");
         boolean expected = true;
         assertEquals(expected,country1.equals(country));
+
     }
 }
