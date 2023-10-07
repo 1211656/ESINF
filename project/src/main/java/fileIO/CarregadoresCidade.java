@@ -1,14 +1,13 @@
 package fileIO;
 
 import domain.*;
+import utils.UtilsFile;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CarregadoresCidade implements Files {
@@ -31,7 +30,7 @@ public class CarregadoresCidade implements Files {
 
             while ((linha = br.readLine()) != null) {
                 // Divide a linha em campos usando a vírgula como delimitador
-                String[] campos = splitCSVLine(linha);
+                String[] campos = UtilsFile.splitCSVLine(linha);
 
                 //Cria os objetos Country, City e Stalls
 
@@ -68,29 +67,7 @@ public class CarregadoresCidade implements Files {
 
     }
 
-    // Função que divide a linha em campos usando a vírgula como delimitador, ignorando as vírgulas dentro de aspas.
-    public static String[] splitCSVLine(String line) {
-        List<String> campos = new ArrayList<>();
-        StringBuilder campoAtual = new StringBuilder();
-        boolean verificaAspas = false;
 
-    // Percorre a linha
-        for (char c : line.toCharArray()) {
-            // Se encontrar aspas, inverte o valor da variável verificaAspas
-            if (c == '"') {
-                verificaAspas = !verificaAspas;
-            } else if (c == ',' && !verificaAspas) {
-                campos.add(campoAtual.toString().trim());
-                campoAtual.setLength(0);
-            } else {
-                campoAtual.append(c);
-            }
-        }
-
-        campos.add(campoAtual.toString().trim());
-
-        return campos.toArray(new String[0]);
-    }
 
     // Função que mostra quantos carregardores existem por cidade
     public void mostraCarregadorCidade() {
@@ -107,34 +84,17 @@ public class CarregadoresCidade implements Files {
 
     // vê se já existe a cidade no map
     public boolean searchForCityInMap(Country country,City city){
-        if(city == null || country == null){
-            return false;
-        }
-        for(Map.Entry<Country,Map<City, Stalls>>  entry : chargersCidade.entrySet()){
-            if(country.equals(entry.getKey())){
-                Map<City, Stalls> map = entry.getValue();
-                for (Map.Entry<City,Stalls> entry1 : map.entrySet()){
-                    if(entry1.getKey().equals(city)){
-                        return true;
-                    }
-                }
+        for (Map.Entry<Country, Map<City, Stalls>> entry : chargersCidade.entrySet()) {
+            if(entry.getValue().containsKey(city)){
+                return true;
             }
-
         }
         return false;
     }
 
     // vê se já existe o país no map
     public boolean searchForCountryInMap(Country country){
-        if(country == null){
-            return false;
-        }
-        for(Map.Entry<Country,Map<City,Stalls>> entry : chargersCidade.entrySet()){
-            if(entry.getKey().equals(country)){
-                return true;
-            }
-        }
-        return false;
+        return chargersCidade.containsKey(country);
     }
 
     // adiciona as stalls da mesma cidade
@@ -162,13 +122,12 @@ public class CarregadoresCidade implements Files {
 
     // obtem a cidade relevante à string lida
     public City getCityInMap(String city, Country country){
-        if(chargersCidade.isEmpty() || !searchForCountryInMap(country)){
-            return new City(city);
-        }
-        Map<City,Stalls> map = chargersCidade.get(country);
-        for(Map.Entry<City,Stalls> entry : map.entrySet()){
-            if(entry.getKey().getName().equalsIgnoreCase(city)){
-                return entry.getKey();
+        if(searchForCountryInMap(country)){
+            Map<City,Stalls> map = chargersCidade.get(country);
+            for(Map.Entry<City,Stalls> entry : map.entrySet()){
+                if(entry.getKey().getName().equalsIgnoreCase(city)){
+                    return entry.getKey();
+                }
             }
         }
         return new City(city);

@@ -1,7 +1,5 @@
 package domain;
 
-import utils.Utils;
-
 import java.util.Objects;
 
 /**
@@ -34,7 +32,7 @@ public class Address {
         this.city = new City(cityName);
         this.streetAdress=new StreetAdress(streetAddress);
         this.zip=new Zip(zipCode);
-        Double[] gps = Utils.stringToDoubleGPS(gpsCoordinates);
+        Double[] gps = Gps.stringToDoubleGPS(gpsCoordinates);
         this.gpsCoordinates= new Gps(gps[0],gps[1]);
     }
 

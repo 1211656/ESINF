@@ -20,24 +20,22 @@ public class ReadSales implements Files {
         matriz = ReadFile.readFile(SalesFile);
         map = new HashMap<>();
         objectAllocation();
-
-
-
     }
 
-    // Método que faz print da lista de países e
-    // (último ano - primeiro ano) / primeiro ano (numero de veículos)
-
+    /**
+     * @param firstYear
+     * @param secondYear
+     * @return map that gets the evolution of number of vehicles
+     */
     public Map<Country,Double> getEvolutionNumberVehicles(int firstYear, int secondYear){
         Map<Country,Double> res = new HashMap<>();
         double diferenca ;
         int valor1 = -1;
         int valor2 = -1;
         int[] arrDifferenceYears = new int[2];
-        System.out.println("Country | Evolution\n");
         ArrayList<Country> countries = new ArrayList<>();
         for (Map.Entry<Sale,Integer> entry : map.entrySet()) {
-            if (!searchForCountry(entry.getKey().getCountry(), countries)) {
+            if (!countries.contains(entry.getKey().getCountry())) {
                 if (searchIfBothYearsAreInMap(firstYear,secondYear,entry.getKey().getCountry())) {
                     Map<Sale, Integer> map2 = getMapByYearsAndCountry(firstYear, secondYear, getMapOfCountries(entry.getKey().getCountry()));
                     for (Map.Entry<Sale, Integer> map3 : map2.entrySet()) {
@@ -69,17 +67,12 @@ public class ReadSales implements Files {
         return res;
     }
 
-    private boolean searchForCountry(Country country, ArrayList<Country> countries){
-        for (Country value : countries) {
-            if (value.equals(country)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
-
-    private Map<Sale,Integer> getMapOfCountries(Country country){
+    /**
+     * @param country
+     * @return map thai tis filtred by a counry passed by argument
+     */
+    public Map<Sale,Integer> getMapOfCountries(Country country){
         Map<Sale,Integer> res = new HashMap<>();
         for (Map.Entry<Sale,Integer> entry : map.entrySet()){
             if(entry.getKey().getCountry().equals(country)){
@@ -89,7 +82,13 @@ public class ReadSales implements Files {
         return res;
     }
 
-    private boolean searchIfBothYearsAreInMap(int firstYear, int secondYear, Country country){
+    /**
+     * @param firstYear
+     * @param secondYear
+     * @param country
+     * @return retur true if both years are in map
+     */
+    public boolean searchIfBothYearsAreInMap(int firstYear, int secondYear, Country country){
         Map<Sale,Integer> mapThis = getMapOfCountries(country);
         int years = 0;
         for(Map.Entry<Sale,Integer> entry : mapThis.entrySet()){
@@ -103,7 +102,13 @@ public class ReadSales implements Files {
         return false;
     }
 
-    private Map<Sale,Integer> getMapByYearsAndCountry( int firstYear,int secondYear, Map<Sale,Integer> map1){
+    /**
+     * @param firstYear
+     * @param secondYear
+     * @param map1
+     * @return map filtred by years and country passed by argument
+     */
+    public Map<Sale,Integer> getMapByYearsAndCountry( int firstYear,int secondYear, Map<Sale,Integer> map1){
         int numberVehiclesMax = 0,numberVehiclesMin = 0;
         Sale saleMax=null,saleMin=null;
         Map<Sale,Integer> res = new HashMap<>();
@@ -122,7 +127,10 @@ public class ReadSales implements Files {
         return res;
     }
 
-    private void objectAllocation(){
+    /**
+     * allocation of the objects
+     */
+    public void objectAllocation(){
         for (String[] strings : matriz) {
             if (strings[0] == null) {
                 break;

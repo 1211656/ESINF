@@ -130,4 +130,20 @@ public class Gps implements Comparable<Gps>{
        Gps gps = (Gps) obj;
        return gps.longitude==this.longitude&&gps.latitude==this.latitude;
     }
+
+    /**
+     * @param gps
+     * @return array que tem como primeiro elemento a latitude e 2º elemento a longitude
+     */
+    public static Double[] stringToDoubleGPS(String gps){
+        Double[] res = new Double[2];
+        String[] strings = gps.split(", ");
+        int index = 0;
+        for (String strings1 : strings) {
+            res[index] = Double.parseDouble(strings1);
+            index ++;
+        }
+        // "62.073923, 9.125562"
+        return res;
+    }
 }

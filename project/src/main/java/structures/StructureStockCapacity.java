@@ -12,6 +12,7 @@ import fileIO.CarregadoresCidade;
 import fileIO.Files;
 import fileIO.ReadCarregadores;
 import repositories.SuperchargerRepository;
+import utils.UtilsFile;
 
 
 public class StructureStockCapacity implements Files {
@@ -27,7 +28,7 @@ public class StructureStockCapacity implements Files {
     private List<Supercharger> superchargerList;
 
     public StructureStockCapacity()throws IOException {
-        data = ReadCarregadores.readFileToArray(Teste);
+        data = UtilsFile.readFileToArray(Teste);
         allocateObjects();
         superchargerList = SuperchargerRepository.superchargerList;
 

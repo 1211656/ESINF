@@ -1,6 +1,7 @@
 package fileIO;
 
 import org.junit.jupiter.api.Test;
+import utils.UtilsFile;
 
 import java.io.IOException;
 
@@ -14,7 +15,7 @@ class ReadCarregadoresTest implements Files{
 
     @Test
     void readFileToArray() throws IOException {
-        String[][] arr = ReadCarregadores.readFileToArray(Teste);
+        String[][] arr = UtilsFile.readFileToArray(Teste);
 
     }
 
@@ -22,10 +23,10 @@ class ReadCarregadoresTest implements Files{
 
     @Test
     void getNumberLinesOfFile() throws IOException{
-        assertEquals(16,ReadCarregadores.getNumberLinesOfFile(Teste));
+        assertEquals(16,UtilsFile.getNumberLinesOfFile(Teste));
     }
     @Test
     void getNumberColumnsOfFile()throws IOException{
-        assertEquals(12,ReadCarregadores.getNumberOfColumnsFile(Teste));
+        assertEquals(12,UtilsFile.getNumberOfColumnsFile(Teste));
     }
 }

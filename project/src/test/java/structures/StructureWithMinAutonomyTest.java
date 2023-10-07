@@ -4,9 +4,7 @@ import domain.Country;
 import domain.Gps;
 import fileIO.Files;
 import fileIO.ReadCarregadores;
-import fileIO.ReadFile;
 import org.junit.jupiter.api.Test;
-import utils.Utils;
 
 import java.io.IOException;
 import java.util.*;

@@ -1,2 +1,4 @@
-package tasks;public class ReadSalestask {
+package tasks;
+
+public class ReadSalesTask {
 }
