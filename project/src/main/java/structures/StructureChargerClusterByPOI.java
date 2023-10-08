@@ -5,6 +5,7 @@ import fileIO.Files;
 import tasks.TaskChargerClusterByPOI;
 import utils.UtilsFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -14,9 +15,9 @@ public class StructureChargerClusterByPOI implements Files {
     private String[][] data;
     private TaskChargerClusterByPOI task;
 
-    public StructureChargerClusterByPOI() throws IOException {
+    public StructureChargerClusterByPOI(File file) throws IOException {
         task = new TaskChargerClusterByPOI();
-        data = UtilsFile.readFileToArray(CarregadoresFile);
+        data = UtilsFile.readFileToArray(file);
         superchargerList = task.getDataFromFile(data);
 
     }

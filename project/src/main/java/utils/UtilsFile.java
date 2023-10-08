@@ -75,31 +75,30 @@ public class UtilsFile {
      * @return matriz de dados que recebe do ficheiro CSV Carregadores
      * @throws IOException
      */
-    public static String[][] readFileToArray(File file)throws IOException{
-        String[] campos = null;
-        String[][] res = new String[getNumberLinesOfFile(file)][getNumberOfColumnsFile(file)];
-        boolean sair = false;
-        while(sair == false){
-            try{
-                int index = 0;
-                BufferedReader br = new BufferedReader(new FileReader(file));
-                String linha;
-                br.readLine();
+    public static String[][] readFileToArray(File file) throws IOException {
+        try {
+            int numLines = getNumberLinesOfFile(file);
+            int numColumns = getNumberOfColumnsFile(file);
+            String[][] res = new String[numLines][numColumns];
 
-                while((linha = br.readLine())!=null&&!linha.equals("")){
-                    campos = UtilsFile.splitCSVLine(linha);
-                    res[index] = campos;
-                    index ++;
-                }
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String linha;
+            br.readLine(); // Skip the first line
 
-                sair = true;
-
-
-            }catch(FileNotFoundException e){
-                e.printStackTrace();
+            int index = 0;
+            while ((linha = br.readLine()) != null && !linha.equals("")) {
+                String[] campos = UtilsFile.splitCSVLine(linha);
+                res[index] = campos;
+                index++;
             }
+
+            br.close();
+            return res;
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
         }
-        return res;
     }
 
     /**
