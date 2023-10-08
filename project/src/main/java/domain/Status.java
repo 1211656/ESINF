@@ -12,6 +12,20 @@ public class Status {
     private boolean status;
 
     /**
+     *  Construtor de objeto a partir de string
+     * @param status
+     * @return status
+     */
+    public static Status createStatus(String status){
+        if(status.equals("OPEN")){
+            return new Status(true);
+        }
+        else{
+            return new Status(false);
+        }
+    }
+
+    /**
      * construtor de objeto
      * @param status
      */
