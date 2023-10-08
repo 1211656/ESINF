@@ -17,21 +17,32 @@ public class DecreaseInSales {
         this.ex3 = new TreeMap<>();
     }
 
-    public Map<Country, Map<YearPair, Map<String, Integer>>> getData2(String file){
+    /**
+     * Get the data from the file
+     * @param file
+     * @return Map<Country, Map<Years Analyzed, Map <Powertrain, Sales Variation>>>
+     */
+    public Map<Country, Map<YearPair, Map<String, Integer>>> getData(String file){
         List<Sale> sales = ReadSalesFile.getDataFromFile(file);
         for (Sale sale:
              sales) {
             for (Sale saleAux :
                     sales) {
                 if(sale.getCountry().equals(saleAux.getCountry()) && sale.getYear() < saleAux.getYear() && sale.getTypeVehicle().equals(saleAux.getTypeVehicle()) && sale.getVehiclesSold()>saleAux.getVehiclesSold()){
-                    addLine2(saleAux, sale.getYear(), sale.getVehiclesSold()- saleAux.getVehiclesSold());
+                    addLine(saleAux, sale.getYear(), sale.getVehiclesSold()- saleAux.getVehiclesSold());
                 }
             }
         }
         return ex3;
     }
 
-    public void addLine2(Sale sale, int firstYear, int salesVariation){
+    /**
+     * Add a line to the map
+     * @param sale
+     * @param firstYear
+     * @param salesVariation
+     */
+    public void addLine(Sale sale, int firstYear, int salesVariation){
         if (ex3.containsKey(sale.getCountry())){
             Map<YearPair, Map<String, Integer>> aux = ex3.get(sale.getCountry());
             if (aux.containsKey(new YearPair(firstYear, sale.getYear()))){

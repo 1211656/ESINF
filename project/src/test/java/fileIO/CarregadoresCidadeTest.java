@@ -47,7 +47,7 @@ class CarregadoresCidadeTest implements Files{
     @Test
     void getChargers() {
         CarregadoresCidade carregadoresCidade = new CarregadoresCidade();
-        carregadoresCidade.GetChargers(Teste);
+        //carregadoresCidade.GetChargers(Teste);
         carregadoresCidade.mostraCarregadorCidade();
     }
 

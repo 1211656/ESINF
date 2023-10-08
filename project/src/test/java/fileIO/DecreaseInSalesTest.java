@@ -16,7 +16,7 @@ public class DecreaseInSalesTest {
     void test1(){
         Map<Country, Map<YearPair, Map<String, Integer>>> decreasedYearlySalesByCountry, expectedResults;
         DecreaseInSales decreaseInSales = new DecreaseInSales();
-        decreasedYearlySalesByCountry = decreaseInSales.getData2("C://Users//Diogo//Documents//ESINF//project//src//test//testFiles//decreaseSalesTest.csv");
+        decreasedYearlySalesByCountry = decreaseInSales.getData("C://Users//Diogo//Documents//ESINF//project//src//test//testFiles//decreaseSalesTest.csv");
         expectedResults = new TreeMap<>();
         decreaseInSales.print();
         populateExpectedResultsTest1(expectedResults);

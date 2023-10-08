@@ -10,11 +10,20 @@ public class ChargerClustersByPOI {
     private List<Supercharger> superchargerList;
     private Map<Gps, List<Supercharger>> superchargerClusterByPOI;
 
+    /**
+     * Define the file to read the data from, and get the data from the file
+     * @param file
+     */
     public void defineFile(String file) {
         this.file = file;
         superchargerList = ReadChargersFile.getDataFromFile(file);
     }
 
+    /**
+     * Cluster data by POI
+     * @param POIList
+     * @return Map<Gps, List<Supercharger>>
+     */
     public Map<Gps, List<Supercharger>> getDataByPOI(List<Gps> POIList){
         superchargerClusterByPOI = new HashMap<>();
 
@@ -45,6 +54,12 @@ public class ChargerClustersByPOI {
         return sortData(superchargerClusterByPOI);
     }
 
+
+    /**
+     * Sort the data by the number of superchargers in each POI
+     * @param unsortedMap
+     * @return Map<Gps, List<Supercharger>>
+     */
     private Map<Gps, List<Supercharger>> sortData(Map<Gps, List<Supercharger>> unsortedMap) {
         Map<Gps, List<Supercharger>> sortedMap = new TreeMap<>(new Comparator<Gps>() {
             @Override
