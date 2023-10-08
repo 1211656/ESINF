@@ -3,10 +3,7 @@ package fileIO;
 import domain.Gps;
 import domain.Supercharger;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ChargerClustersByPOI {
     private String file;
@@ -18,8 +15,9 @@ public class ChargerClustersByPOI {
         superchargerList = ReadChargersFile.getDataFromFile(file);
     }
 
-    public void sortDataByPOI(List<Gps> POIList){
+    public Map<Gps, List<Supercharger>> getDataByPOI(List<Gps> POIList){
         superchargerClusterByPOI = new HashMap<>();
+
         for (Gps gps :
                 POIList) {
             superchargerClusterByPOI.put(gps, new ArrayList<>());
@@ -44,11 +42,35 @@ public class ChargerClustersByPOI {
                 superchargerClusterByPOI.get(nearestPOI).add(supercharger);
             }
         }
+        return sortData(superchargerClusterByPOI);
     }
+
+    private Map<Gps, List<Supercharger>> sortData(Map<Gps, List<Supercharger>> unsortedMap) {
+        Map<Gps, List<Supercharger>> sortedMap = new TreeMap<>(new Comparator<Gps>() {
+            @Override
+            public int compare(Gps o1, Gps o2) {
+                int size1 = superchargerClusterByPOI.get(o1).size();
+                int size2 = superchargerClusterByPOI.get(o2).size();
+                return Integer.compare(size2, size1);
+            }
+        });
+
+        for (Map.Entry<Gps, List<Supercharger>> entry
+                : unsortedMap.entrySet()) {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedMap;
+    }
+
     public void printMap() {
         for (Map.Entry<Gps, List<Supercharger>> entry : superchargerClusterByPOI.entrySet()) {
             System.out.println(entry.getKey());
-            System.out.println(entry.getValue());
+            List<Supercharger> superchargerList = entry.getValue();
+            for (Supercharger supercharger :
+                    superchargerList) {
+                System.out.println(supercharger.getAddress().getCity());
+            }
         }
     }
 }

@@ -1,66 +1,64 @@
 package fileIO;
 
 import domain.Country;
+import domain.Sale;
+import domain.YearPair;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.security.PublicKey;
+import java.util.*;
 
 public class DecreaseInSales {
-    private Map<Country, Map<Integer[], Map<String, Integer>>> ex3;
+    private Map<Country, Map<YearPair, Map<String, Integer>>> ex3;
+    //Map<Country, Map<Years Analyzed, Map <Powertrain, Sales Variation>>>
+
 
     public DecreaseInSales(){
         this.ex3 = new TreeMap<>();
     }
 
-    public void getData(String file){
-        String[][] data = ReadFile.readFile(new File(file));
-        int firstYear = 0;
-        int firstYearSales = 0;
-        for (String[] line :
-                data) {
-            if(line[0] == null){
-                break;
-            } else {
-                if (firstYear < Integer.parseInt(line[2]) && firstYearSales > Integer.parseInt(line[3])){
-                    addLine(line, firstYear, firstYearSales- Integer.parseInt(line[3]));
+    public Map<Country, Map<YearPair, Map<String, Integer>>> getData2(String file){
+        List<Sale> sales = ReadSalesFile.getDataFromFile(file);
+        for (Sale sale:
+             sales) {
+            for (Sale saleAux :
+                    sales) {
+                if(sale.getCountry().equals(saleAux.getCountry()) && sale.getYear() < saleAux.getYear() && sale.getTypeVehicle().equals(saleAux.getTypeVehicle()) && sale.getVehiclesSold()>saleAux.getVehiclesSold()){
+                    addLine2(saleAux, sale.getYear(), sale.getVehiclesSold()- saleAux.getVehiclesSold());
                 }
-
-                firstYear = Integer.parseInt(line[2]);
-                firstYearSales = Integer.parseInt(line[3]);
             }
         }
+        return ex3;
     }
 
-    private void addLine(String[] line, int firstYear, int salesVariation){
-        if (ex3.containsKey(new Country(line[0]))){
-            Map<Integer[], Map<String, Integer>> aux = ex3.get(new Country(line[0]));
-            if (aux.containsKey(new Integer[]{firstYear, Integer.parseInt(line[2])})){
-                Map<String, Integer> salesByPowertrain = aux.get(new Integer[]{firstYear, Integer.parseInt(line[2])});
-                salesByPowertrain.put(line[1], -salesVariation);
+    public void addLine2(Sale sale, int firstYear, int salesVariation){
+        if (ex3.containsKey(sale.getCountry())){
+            Map<YearPair, Map<String, Integer>> aux = ex3.get(sale.getCountry());
+            if (aux.containsKey(new YearPair(firstYear, sale.getYear()))){
+                Map<String, Integer> salesByPowertrain = aux.get(new YearPair(firstYear, sale.getYear()));
+                salesByPowertrain.put(sale.getTypeVehicle(), -salesVariation);
             }else{
                 Map<String, Integer> salesByPowertrain = new TreeMap<>();
-                salesByPowertrain.put(line[1], -salesVariation);
-                aux.put(new Integer[]{firstYear, Integer.parseInt(line[2])}, salesByPowertrain);
+                salesByPowertrain.put(sale.getTypeVehicle(), -salesVariation);
+                aux.put(new YearPair(firstYear, sale.getYear()), salesByPowertrain);
             }
         } else {
-            Map<Integer[], Map<String, Integer>> aux = new HashMap<>();
+            Map<YearPair, Map<String, Integer>> aux = new HashMap<>();
             Map<String, Integer> salesByPowertrain = new TreeMap<>();
-            salesByPowertrain.put(line[1], -salesVariation);
-            aux.put(new Integer[]{firstYear, Integer.parseInt(line[2])}, salesByPowertrain);
-            ex3.put(new Country(line[0]), aux);
+            salesByPowertrain.put(sale.getTypeVehicle(), -salesVariation);
+            aux.put(new YearPair(firstYear, sale.getYear()), salesByPowertrain);
+            ex3.put(sale.getCountry(), aux);
         }
     }
 
+
     public void print(){
-        for (Map.Entry<Country, Map<Integer[], Map<String, Integer>>> entry :
+        for (Map.Entry<Country, Map<YearPair, Map<String, Integer>>> entry :
                 ex3.entrySet()) {
             System.out.println(entry.getKey());
-            for (Map.Entry<Integer[], Map<String, Integer>> entry1 :
+            for (Map.Entry<YearPair, Map<String, Integer>> entry1 :
                     entry.getValue().entrySet()) {
-                System.out.println(Arrays.toString(entry1.getKey()));
+                System.out.println(entry1.getKey());
                 for (Map.Entry<String, Integer> entry2 :
                         entry1.getValue().entrySet()) {
                     System.out.println(entry2.getKey() + " " + entry2.getValue());
