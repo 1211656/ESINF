@@ -1,44 +1,20 @@
-package fileIO;
+package tasks;
 
 import domain.Country;
-import utils.UtilsFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class DecreaseInSales implements Files{
-    private Map<Country, Map<Integer[], Map<String, Integer>>> map;
-    private String[][] data;
+public class TaskDecreaseInSales {
 
-    public DecreaseInSales() throws IOException {
-        this.map = new TreeMap<>();
-        data = UtilsFile.readFileToArraySale(SalesFile);
-        getData();
+
+    public TaskDecreaseInSales(){
+
     }
 
-    public void getData(){
-        int firstYear = 0;
-        int firstYearSales = 0;
-        for (String[] line :
-                data) {
-            if(line[0] == null){
-                break;
-            } else {
-                if (firstYear < Integer.parseInt(line[2]) && firstYearSales > Integer.parseInt(line[3])){
-                    addLine(line, firstYear, firstYearSales- Integer.parseInt(line[3]));
-                }
-
-                firstYear = Integer.parseInt(line[2]);
-                firstYearSales = Integer.parseInt(line[3]);
-            }
-        }
-    }
-
-    private void addLine(String[] line, int firstYear, int salesVariation){
+    public void addLine(String[] line, int firstYear, int salesVariation,Map<Country, Map<Integer[], Map<String, Integer>>> map){
         if (map.containsKey(new Country(line[0]))){
             Map<Integer[], Map<String, Integer>> aux = map.get(new Country(line[0]));
             if (aux.containsKey(new Integer[]{firstYear, Integer.parseInt(line[2])})){
@@ -58,7 +34,7 @@ public class DecreaseInSales implements Files{
         }
     }
 
-    public void print(){
+    public void print(Map<Country, Map<Integer[], Map<String, Integer>>> map){
         for (Map.Entry<Country, Map<Integer[], Map<String, Integer>>> entry :
                 map.entrySet()) {
             System.out.println(entry.getKey());
@@ -73,6 +49,4 @@ public class DecreaseInSales implements Files{
             }
         }
     }
-
-
 }

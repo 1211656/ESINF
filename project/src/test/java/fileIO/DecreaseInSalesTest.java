@@ -2,13 +2,15 @@ package fileIO;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 public class DecreaseInSalesTest {
 
     //! Falta assert
     @Test
-    void test1(){
+    void test1() throws IOException {
         DecreaseInSales decreaseInSales = new DecreaseInSales();
-        decreaseInSales.getData("C://Users//Diogo//Documents//ESINF//ev_sales.csv");
+        decreaseInSales.getData();
         decreaseInSales.print();
     }
 }
