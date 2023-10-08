@@ -1,89 +1,44 @@
-package fileIO;
+package tasks;
 
-import domain.*;
-import utils.UtilsFile;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import domain.City;
+import domain.Country;
+import domain.PowerKw;
+import domain.Stalls;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CarregadoresCidade implements Files {
+/**
+ * Classe que guarda as tarefas necessárias para obter a estrutura final
+ */
+public class TaskCityChargers {
 
-    /* Mapa que guarda o País , Cidade e Carregadores.
-       País é a chave principal do Map tendo um Map interno associado,
-       onde a cidade atua como a chave e o valor é o número agregado de carregadores.*/
-
-
-    Map<Country, Map<City, Stalls>> chargersCidade;
-
-    public CarregadoresCidade(){
-        chargersCidade= new HashMap<>();
-    }
-
-    public void GetChargers(File file) {
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String linha;
-            br.readLine(); // Ignora a primeira linha
-
-            while ((linha = br.readLine()) != null) {
-                // Divide a linha em campos usando a vírgula como delimitador
-                String[] campos = UtilsFile.splitCSVLine(linha);
-
-                //Cria os objetos Country, City e Stalls
-
-                Country country = getCountryInMap(campos[5].trim());
-                City city = getCityInMap(campos[2].trim(),country);
-                PowerKw powerKw = new PowerKw(Integer.parseInt(campos[7].trim()));
-                Stalls stalls = new Stalls(Integer.parseInt(campos[6].trim()), powerKw);
-
-
-
-
-                // verificar se já existe o país
-                if(searchForCountryInMap(country)){
-                    // verificar se já existe a cidade
-                    if(searchForCityInMap(country,city)){
-                        // se já existir a cidade então temos de adicionar o número de stalls à cidade já existente
-                        addStallsToCity(country,city,stalls);
-                    }
-                    // se já existir país mas não existir cidade, adicionas à chave country equivalente o mapa <Ciy, Stall> para não haver repetilção de países
-                    else{
-
-                        chargersCidade.get(country).put(city,stalls);
-                    }
-                }
-                else{
-                    //Adiciona ao Map chargersCidade o país, cidade e carregadores
-                    chargersCidade.put(country, new HashMap<>());
-                    chargersCidade.get(country).put(city, stalls);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
-
-    // Função que mostra quantos carregardores existem por cidade
-    public void mostraCarregadorCidade() {
+    /**
+     * Construtor
+     */
+    public TaskCityChargers(){}
+    /**
+     * função que faz print da estrutura
+     */
+    public void mostraCarregadorCidade(Map<Country,Map<City,Stalls>> chargersCidade) {
         // Percorre o Map chargersCidade
         for (Map.Entry<Country, Map<City, Stalls>> entry : chargersCidade.entrySet()) {
-            System.out.print(entry.getKey().getName() + " | ");
             // Percorre o Map interno chargersCidade
             for (Map.Entry<City, Stalls> entry2 : entry.getValue().entrySet()) {
-                System.out.println(entry2.getKey().getName() + " | " + entry2.getValue().getNumberOfStalls());
+                System.out.println( entry.getKey() + " | " +entry2.getKey().getName() + " | " + entry2.getValue().getNumberOfStalls());
             }
         }
     }
 
-
-    // vê se já existe a cidade no map
-    public boolean searchForCityInMap(Country country,City city){
+    /**
+     * @param country
+     * @param city
+     * @param chargersCidade
+     * @return true if city in map, false if isn't
+     */
+    public boolean searchForCityInMap(Country country,City city,Map<Country,Map<City,Stalls>> chargersCidade){
+        if(country == null || city == null || chargersCidade == null){
+            return false;
+        }
         for (Map.Entry<Country, Map<City, Stalls>> entry : chargersCidade.entrySet()) {
             if(entry.getValue().containsKey(city)){
                 return true;
@@ -92,13 +47,26 @@ public class CarregadoresCidade implements Files {
         return false;
     }
 
-    // vê se já existe o país no map
-    public boolean searchForCountryInMap(Country country){
+    /**
+     * @param country
+     * @param chargersCidade
+     * @return true if country in map, false if not
+     */
+    public boolean searchForCountryInMap(Country country,Map<Country,Map<City,Stalls>> chargersCidade){
+        if(chargersCidade==null){
+            return false;
+        }
         return chargersCidade.containsKey(country);
     }
 
-    // adiciona as stalls da mesma cidade
-    public boolean addStallsToCity(Country country, City city, Stalls stalls){
+    /**
+     * @param country
+     * @param city
+     * @param stalls
+     * @param chargersCidade
+     * @return boolean value after adding stalls to the same city
+     */
+    public boolean addStallsToCity(Country country, City city, Stalls stalls,Map<Country,Map<City,Stalls>> chargersCidade){
         try{
             Map<City,Stalls> map = chargersCidade.get(country);
             map.get(city).setNumberOfStalls(map.get(city).getNumberOfStalls()+stalls.getNumberOfStalls());
@@ -109,9 +77,15 @@ public class CarregadoresCidade implements Files {
         }
     }
 
-
-    // obtem o país relevante à string lida
-    public Country getCountryInMap(String country){
+    /**
+     * @param country
+     * @param chargersCidade
+     * @return Country referente à string passada como parâmetro
+     */
+    public Country getCountryInMap(String country,Map<Country,Map<City,Stalls>> chargersCidade){
+        if(country == null || chargersCidade == null){
+            return null;
+        }
         for(Map.Entry<Country,Map<City,Stalls>> entry : chargersCidade.entrySet()){
             if(entry.getKey().getName().equalsIgnoreCase(country)){
                 return entry.getKey();
@@ -120,9 +94,17 @@ public class CarregadoresCidade implements Files {
         return new Country(country);
     }
 
-    // obtem a cidade relevante à string lida
-    public City getCityInMap(String city, Country country){
-        if(searchForCountryInMap(country)){
+    /**
+     * @param city
+     * @param country
+     * @param chargersCidade
+     * @return City referente à string lida
+     */
+    public City getCityInMap(String city, Country country,Map<Country,Map<City,Stalls>> chargersCidade){
+        if(city==null || country == null || chargersCidade == null){
+            return null;
+        }
+        if(searchForCountryInMap(country,chargersCidade)){
             Map<City,Stalls> map = chargersCidade.get(country);
             for(Map.Entry<City,Stalls> entry : map.entrySet()){
                 if(entry.getKey().getName().equalsIgnoreCase(city)){
@@ -133,8 +115,11 @@ public class CarregadoresCidade implements Files {
         return new City(city);
     }
 
-    // Função que mostra quantos carregardores existem por país, separados por kW <= 150 e kW > 150
-    public void contaCarregadorPais() {
+    /**
+     * conta quantos carregadores existem por país
+     * @param chargersCidade
+     */
+    public void contaCarregadorPais(Map<Country,Map<City,Stalls>> chargersCidade) {
         // Mapa que guarda o país e o número total de carregadores para kW <= 150
         Map<Country, PowerKw> carregadoresKwInferior = new HashMap<>();
         // Mapa que guarda o país e o número total de carregadores para kW > 150
@@ -173,6 +158,11 @@ public class CarregadoresCidade implements Files {
         mostraResultadoPorPais(carregadoresKwSuperior, "\nCarregadores com kW > " + KwLimit + " por país:\n");
     }
 
+    /**
+     * mostra os resultados por país
+     * @param chargersByCountry
+     * @param message
+     */
     public void mostraResultadoPorPais(Map<Country, PowerKw> chargersByCountry, String message) {
         System.out.println(message);
         // Ordena o Map chargersByCountry por número de carregadores de forma decrescente, e por ordem alfabética do nome do país em caso de empate
@@ -184,5 +174,6 @@ public class CarregadoresCidade implements Files {
                     }
                     return compara;
                 })
-                .forEach(entry -> System.out.println(" *" + entry.getKey().getName() + " - Carregadores Totais: " + entry.getValue().getKw()));    }
+                .forEach(entry -> System.out.println(" *" + entry.getKey().getName() + " - Carregadores Totais: " + entry.getValue().getKw()));
+    }
 }

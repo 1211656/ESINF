@@ -2,15 +2,11 @@ package structures;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 import domain.*;
-import fileIO.CarregadoresCidade;
 import fileIO.Files;
-import fileIO.ReadCarregadores;
 import repositories.SuperchargerRepository;
 import utils.UtilsFile;
 
@@ -28,7 +24,7 @@ public class StructureStockCapacity implements Files {
     private List<Supercharger> superchargerList;
 
     public StructureStockCapacity()throws IOException {
-        data = UtilsFile.readFileToArray(Teste);
+        data = UtilsFile.readFileToArray(CarregadoresFile);
         allocateObjects();
         superchargerList = SuperchargerRepository.superchargerList;
 
