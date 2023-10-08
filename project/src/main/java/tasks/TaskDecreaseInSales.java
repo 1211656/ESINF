@@ -1,6 +1,7 @@
 package tasks;
 
 import domain.Country;
+import domain.YearPair;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -14,22 +15,22 @@ public class TaskDecreaseInSales {
 
     }
 
-    public void addLine(String[] line, int firstYear, int salesVariation,Map<Country, Map<Integer[], Map<String, Integer>>> map){
+    public void addLine(String[] line, int firstYear, int salesVariation,Map<Country, Map<YearPair, Map<String, Integer>>> map){
         if (map.containsKey(new Country(line[0]))){
-            Map<Integer[], Map<String, Integer>> aux = map.get(new Country(line[0]));
-            if (aux.containsKey(new Integer[]{firstYear, Integer.parseInt(line[2])})){
-                Map<String, Integer> salesByPowertrain = aux.get(new Integer[]{firstYear, Integer.parseInt(line[2])});
+            Map<YearPair, Map<String, Integer>> aux = map.get(new Country(line[0]));
+            if (aux.containsKey(new YearPair(firstYear, Integer.parseInt(line[2])))){
+                Map<String, Integer> salesByPowertrain = aux.get(new YearPair(firstYear, Integer.parseInt(line[2])));
                 salesByPowertrain.put(line[1], -salesVariation);
             }else{
                 Map<String, Integer> salesByPowertrain = new TreeMap<>();
                 salesByPowertrain.put(line[1], -salesVariation);
-                aux.put(new Integer[]{firstYear, Integer.parseInt(line[2])}, salesByPowertrain);
+                aux.put(new YearPair(firstYear, Integer.parseInt(line[2])), salesByPowertrain);
             }
         } else {
-            Map<Integer[], Map<String, Integer>> aux = new HashMap<>();
+            Map<YearPair, Map<String, Integer>> aux = new HashMap<>();
             Map<String, Integer> salesByPowertrain = new TreeMap<>();
             salesByPowertrain.put(line[1], -salesVariation);
-            aux.put(new Integer[]{firstYear, Integer.parseInt(line[2])}, salesByPowertrain);
+            aux.put(new YearPair(firstYear, Integer.parseInt(line[2])), salesByPowertrain);
             map.put(new Country(line[0]), aux);
         }
     }

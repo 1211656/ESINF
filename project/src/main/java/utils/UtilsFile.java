@@ -107,27 +107,34 @@ public class UtilsFile {
      * @return matriz dos dados que recebe do ficheiro CSV Sales
      * @throws IOException
      */
-    public static String[][] readFileToArraySale(File file)throws IOException{
-        String[][] res = new String[getNumberLinesOfFile(file)][getNumberOfColumnsFile(file)];
-        boolean sair = false;
-        String[] campos = null;
-        while(sair == false){
-            try{
-                int index = 0;
-                BufferedReader br = new BufferedReader(new FileReader(file));
+    public static String[][] readFileToArraySale(File file) throws IOException {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            int numLines = getNumberLinesOfFile(file);
+            int numColumns = getNumberOfColumnsFile(file);
+            String[][] res = new String[numLines][numColumns];
+            int index = 0;
 
-                String linha;
-                br.readLine();
-                while((linha = br.readLine())!=null&&!linha.equals("")){
-                    campos = linha.split(",");
-                    res[index] = campos;
-                    index ++;
+            br.readLine(); // Skip the first line
+            while ((line = br.readLine()) != null) {
+                if (line.isEmpty()) {
+                    continue; // Skip empty lines
                 }
+                String[] campos = line.split(",");
+                if (campos.length == numColumns) {
+                    res[index++] = campos;
+                } else {
+                    System.err.println("Warning: Skipping line with incorrect number of columns: " + line);
+                }
+            }
 
-                sair = true;
+            br.close();
+            return res;
 
-            }catch (FileNotFoundException e) {e.printStackTrace();}
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
         }
-        return res;
     }
 }

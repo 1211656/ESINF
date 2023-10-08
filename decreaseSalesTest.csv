@@ -1,0 +1,18 @@
+country,powertrain,year,number_of_vehicles
+
+Portugal,BEV,2011,6
+Portugal,PHEV,2011,15
+Portugal,BEV,2012,5
+Portugal,PHEV,2012,9
+Spain,BEV,2011,25
+Spain,PHEV,2011,14
+Spain,BEV,2012,22
+Spain,PHEV,2012,11
+United Kingdom,BEV,2011,25
+United Kingdom,PHEV,2011,21
+United Kingdom,BEV,2012,22
+United Kingdom,PHEV,2012,13
+Netherlands,BEV,2011,15
+Netherlands,PHEV,2011,12
+Netherlands,BEV,2012,11
+Netherlands,PHEV,2012,8
