@@ -62,13 +62,44 @@
 
         class Status{
         }
-    }
-
-    package fileIO{
-        class ReadCSVFile{
-
+        class YearPair{
         }
     }
+    package structures{
+        class StructureChargerClusterPOI{}
+        class StructureChargersByCountry{}
+        class StructureCityChargers{}
+        class StructureDecreaseInSales{}
+        class StructureQuotaReport{}
+        class StructureStockCapacity{}
+        class StructureWithMinAutonomy{}
+
+    }
+
+    package tasks{
+        class TaskChargerClusterByPOI{}
+        class TaskChargersByCountry{}
+        class TaskCityChargers{}
+        class TaskDecreaseInSales{}
+        class TaskQuotaReport{}
+        class TaskStockCapacity{}
+        class TaskWithMinAutonomy{}
+    }
+
+
+
+    package fileIO{
+        interface Files{}
+    }
+
+    package utils{
+        class UtilsFile{}
+        class UtilsMap{}
+        class UtilsList{}
+
+    }
+
+
 Address "1" --o "1" Country
 Address "1" --o "1" City
 Address "1" --o "1" StreetAddress

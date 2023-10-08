@@ -1,7 +1,6 @@
 package domain;
 
 
-import repositories.SuperchargerRepository;
 
 import java.util.Objects;
 
@@ -40,7 +39,7 @@ public class Supercharger {
         this.elevm = elevm;
         this.status = status;
 
-        SuperchargerRepository.superchargerList.add(this);
+
     }
 
     /**
