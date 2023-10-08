@@ -9,8 +9,8 @@ public class DecreaseInSalesTest {
     //! Falta assert
     @Test
     void test1() throws IOException {
-        DecreaseInSales decreaseInSales = new DecreaseInSales();
+        /**DecreaseInSales decreaseInSales = new DecreaseInSales();
         decreaseInSales.getData();
-        decreaseInSales.print();
+        decreaseInSales.print();*/
     }
 }

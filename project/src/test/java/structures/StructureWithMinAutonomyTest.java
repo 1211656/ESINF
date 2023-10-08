@@ -3,7 +3,6 @@
 import domain.Country;
 import domain.Gps;
 import fileIO.Files;
-import fileIO.ReadCarregadores;
 import org.junit.jupiter.api.Test;
 import utils.UtilsFile;
 
@@ -17,13 +16,15 @@ class StructureWithMinAutonomyTest implements Files {
 
     private SortedMap<Country,String> map ;
 
+
     StructureWithMinAutonomyTest() throws IOException {
+
     }
 
     @Test
     void generate() throws IOException {
+
         // guarda a matriz dos dados
-        Map<Gps,Country> res  = ReadCarregadores.readFile(Teste);
         System.out.println("Keys    ->     Values");
         for(SortedMap.Entry<Gps,Country> entry : res.entrySet()){
             System.out.printf("%.5f , %.5f -> %s\n", entry.getKey().getLatitude(),entry.getKey().getLongitude(), entry.getValue());

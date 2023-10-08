@@ -3,9 +3,10 @@ package structures;
 import domain.Country;
 import domain.Sale;
 import fileIO.Files;
-import fileIO.ReadFile;
 import tasks.TaskEvolutionNumberVehicles;
+import utils.UtilsFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,9 +22,9 @@ public class StructureEvolutionNumberVehicles implements Files {
     /**
      * Construtor de objetos
      */
-    public StructureEvolutionNumberVehicles() {
+    public StructureEvolutionNumberVehicles() throws IOException {
         task = new TaskEvolutionNumberVehicles();
-        matriz = ReadFile.readFile(SalesFile);
+        matriz = UtilsFile.readFileToArraySale(SalesFile);
 
     }
 

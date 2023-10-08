@@ -1,10 +1,10 @@
 Supercharger,StreetAddress,City,State,Zip,Country,Stalls,kW,GPS,Elevm,Status
-London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,,SE10 0TW,Portugal,12,15,"20, 10",7,Open
-London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",Lisbon,,SE10 0TW,Portugal,12,13,"5, 15",7,Open
-London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,,SE10 0TW,Portugal,12,1,"2, 3",7,Open
-London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,,SE10 0TW,Sweden,12,150,"2, 9",7,Open
-London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,,SE10 0TW,Sweden,12,150,"8, 20",7,Open
-London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,,SE10 0TW,Sweden,12,150,"10, 10",7,Open
+London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,Estado1,SE10 0TW,Portugal,12,15,"20, 10",7,Open
+London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",Lisbon,Estado2,SE10 0TW,Portugal,12,13,"5, 15",7,Open
+London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,Estado3,SE10 0TW,Portugal,12,1,"2, 3",7,Open
+London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,,SE10 0TW,Sweden,1,150,"2, 9",7,Open
+London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,,SE10 0TW,Sweden,1,178,"8, 20",7,Open
+London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,,SE10 0TW,Sweden,1,1,"10, 10",7,Open
 London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,,SE10 0TW,Brazil,12,150,"12.12, 13.13",7,Open
 London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,,SE10 0TW,Brazil,12,150,"14.14, 14.14",7,Open
 London - North Greenwich, UK,"Waterview Dr, Greenwich Peninsula",London,,SE10 0TW,Brazil,12,150,"15.15, 15.15",7,Open

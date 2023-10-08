@@ -1,25 +1,29 @@
-package fileIO;
+package structures;
 
-import domain.Gps;
-import domain.Supercharger;
+import domain.*;
+import fileIO.Files;
+import tasks.TaskChargerClusterByPOI;
+import utils.UtilsFile;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.util.*;
 
-public class ChargerClustersByPOI {
-    private String file;
+public class StructureChargerClusterByPOI implements Files {
     private List<Supercharger> superchargerList;
     private Map<Gps, List<Supercharger>> superchargerClusterByPOI;
+    private String[][] data;
+    private TaskChargerClusterByPOI task;
 
-    public void defineFile(String file) {
-        this.file = file;
-        superchargerList = ReadChargersFile.getDataFromFile(file);
+    public StructureChargerClusterByPOI() throws IOException {
+        task = new TaskChargerClusterByPOI();
+        data = UtilsFile.readFileToArray(CarregadoresFile);
+        superchargerList = task.getDataFromFile(data);
+
     }
 
-    public void sortDataByPOI(List<Gps> POIList){
+    public Map<Gps, List<Supercharger>> getDataByPOI(List<Gps> POIList){
         superchargerClusterByPOI = new HashMap<>();
+
         for (Gps gps :
                 POIList) {
             superchargerClusterByPOI.put(gps, new ArrayList<>());
@@ -44,11 +48,9 @@ public class ChargerClustersByPOI {
                 superchargerClusterByPOI.get(nearestPOI).add(supercharger);
             }
         }
+        return task.sortData(superchargerClusterByPOI,superchargerClusterByPOI);
     }
-    public void printMap() {
-        for (Map.Entry<Gps, List<Supercharger>> entry : superchargerClusterByPOI.entrySet()) {
-            System.out.println(entry.getKey());
-            System.out.println(entry.getValue());
-        }
-    }
+
+
+
 }
