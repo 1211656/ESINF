@@ -11,11 +11,15 @@ import java.util.List;
 import java.util.Map;
 
 public class TaskChargersByCountry {
+/**
+    public TaskChargersByCountry(){}
     /**
      * conta quantos carregadores existem por país
      * @param chargersCidade
      */
-    /*public LinkedList<Map<Country,PowerKw>> contaCarregadorPais(Map<Country, Map<City, Stalls>> chargersCidade) {
+
+/**
+    public LinkedList<Map<Country,PowerKw>> contaCarregadorPais(Map<Country, Map<City, Stalls>> chargersCidade) {
         LinkedList<Map<Country,PowerKw>> ret = new LinkedList<>();
         // Mapa que guarda o país e o número total de carregadores para kW <= 150
         Map<Country, PowerKw> carregadoresKwInferior = new HashMap<>();
@@ -54,13 +58,14 @@ public class TaskChargersByCountry {
         // Imprime os resultados usando a função de impressão separada
         mostraResultadoPorPais(carregadoresKwInferior, "Carregadores com kW <= " + KwLimit + " por país:\n");
         mostraResultadoPorPais(carregadoresKwSuperior, "\nCarregadores com kW > " + KwLimit + " por país:\n");
-    }*/
+    }
 
     /**
      * mostra os resultados por país
      * @param chargersByCountry
      * @param message
      */
+/**
     public void mostraResultadoPorPais(Map<Country, PowerKw> chargersByCountry, String message) {
         System.out.println(message);
         // Ordena o Map chargersByCountry por número de carregadores de forma decrescente, e por ordem alfabética do nome do país em caso de empate
@@ -74,4 +79,6 @@ public class TaskChargersByCountry {
                 })
                 .forEach(entry -> System.out.println(" *" + entry.getKey().getName() + " - Carregadores Totais: " + entry.getValue().getKw()));
     }
+    */
+
 }

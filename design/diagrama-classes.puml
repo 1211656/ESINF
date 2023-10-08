@@ -73,6 +73,7 @@
         class StructureQuotaReport{}
         class StructureStockCapacity{}
         class StructureWithMinAutonomy{}
+        class StructureEvolutionNumberVehicles{}
 
     }
 
@@ -84,6 +85,7 @@
         class TaskQuotaReport{}
         class TaskStockCapacity{}
         class TaskWithMinAutonomy{}
+        class TaskEvolutionNumberVehicles{}
     }
 
 
@@ -112,5 +114,35 @@ SuperCharger "1" -- "1" GPS
 SuperCharger "1" -- "1" PowerKw
 SuperCharger "1" -- "1" Stalls
 SuperCharger "1" -- "1" Elevm
+
+StructureChargerClusterPOI "1" --- "1" TaskChargerClusterByPOI : has >
+StructureChargersByCountry "1" -- "1" TaskChargersByCountry : has >
+StructureCityChargers "1" -- "1" TaskCityChargers : has >
+StructureDecreaseInSales "1" -- "1" TaskDecreaseInSales : has >
+StructureWithMinAutonomy "1" --- "1" TaskWithMinAutonomy : has >
+StructureEvolutionNumberVehicles "1" -- "1" TaskEvolutionNumberVehicles : has >
+StructureQuotaReport "1" --- "1" TaskQuotaReport : has >
+StructureStockCapacity "1" --- "1" TaskStockCapacity : has >
+
+StructureChargerClusterPOI "1" --- "1" Files : implements >
+StructureChargersByCountry "1" -- "1" Files : implements >
+StructureCityChargers "1" -- "1" Files : implements >
+StructureDecreaseInSales "1" -- "1" Files : implements >
+StructureWithMinAutonomy "1" --- "1" Files : implements >
+StructureEvolutionNumberVehicles "1" -- "1" Files : implements >
+StructureQuotaReport "1" --- "1" Files : implements >
+StructureStockCapacity "1" --- "1" Files : implements >
+
+StructureChargerClusterPOI "1" ----- "1" Bootstrap : has >
+StructureChargersByCountry "1" --- "1" Bootstrap : has >
+StructureCityChargers "1" ---- "1" Bootstrap : has >
+StructureDecreaseInSales "1" ---- "1" Bootstrap : has >
+StructureWithMinAutonomy "1" --- "1" Bootstrap : has >
+StructureEvolutionNumberVehicles "1" ---- "1" Bootstrap : has >
+StructureQuotaReport "1" --- "1" Bootstrap : has >
+StructureStockCapacity "1" --- "1" Bootstrap : has >
+
+Bootstrap "1" -- "1" UtilsFile : gets
+
 
 @enduml
