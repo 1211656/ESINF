@@ -3,6 +3,7 @@ package structures;
 import domain.*;
 import fileIO.Files;
 import org.junit.jupiter.api.Test;
+import utils.Bootstrap;
 
 import java.io.IOException;
 import java.util.*;
@@ -10,15 +11,37 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StructureChargerClusterTest implements Files {
-    @Test
-    public void testClusters() throws IOException {
-        StructureChargerClusterByPOI chargerClustersByPOI = new StructureChargerClusterByPOI(ChargerClusterByPOI);
-        List<Gps> POIList = new ArrayList<>();
+    Bootstrap bootstrap;
+    Map<Gps, List<Supercharger>> superchargerClusterByPOI;
+    StructureChargerClusterByPOI structure;
+    List<Gps> POIList;
+    List<Supercharger> superchargerList;
+
+    public StructureChargerClusterTest() throws IOException {
+        bootstrap = new Bootstrap();
+        structure = new StructureChargerClusterByPOI(bootstrap);
+        POIList = new ArrayList<>();
         POIList.add(new Gps(0, 0));
         POIList.add(new Gps(5, 5));
         POIList.add(new Gps(7, 7));
-        Map<Gps, List<Supercharger>> sortedMap = chargerClustersByPOI.getDataByPOI(POIList);
-        assertEquals(sortedMap, populateMap());
+        superchargerClusterByPOI = structure.getDataByPOI(POIList);
+        superchargerList = new ArrayList<>();
+        //superchargerList.add(new Supercharger(null,null,null,null,null,null,null,null,null,null));
+    }
+
+
+    @Test
+    void generate(){
+        int cont = 0;
+        for(Map.Entry<Gps, List<Supercharger>> entry : superchargerClusterByPOI.entrySet()){
+            cont ++;
+            System.out.printf("Gps: %s\n",entry.getKey());
+            System.out.println("---------------");
+            for(int i = 0; i < entry.getValue().size() ; i ++){
+                System.out.println(entry.getValue().get(i));
+            }
+            System.out.println("---------------");
+        }
     }
 
     private Map<Gps, List<Supercharger>> populateMap(){

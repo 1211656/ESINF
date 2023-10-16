@@ -6,6 +6,8 @@ import domain.PowerKw;
 import domain.Stalls;
 import org.junit.jupiter.api.Test;
 import structures.StructureCityChargers;
+import utils.Bootstrap;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,10 +17,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class TaskCityChargersTest {
 
     StructureCityChargers structure ;
-
+    Bootstrap bootstrap ;
 
     TaskCityChargersTest() throws IOException {
-        structure = new StructureCityChargers();
+        bootstrap = new Bootstrap();
+        structure = new StructureCityChargers(bootstrap);
     }
 
     @Test

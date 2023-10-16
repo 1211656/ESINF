@@ -4,6 +4,7 @@ import domain.Country;
 import domain.YearPair;
 import fileIO.Files;
 import tasks.TaskDecreaseInSales;
+import utils.Bootstrap;
 import utils.UtilsFile;
 
 import java.io.File;
@@ -16,12 +17,18 @@ public class StructureDecreaseInSales implements Files {
     private Map<Country, Map<YearPair, Map<String, Integer>>> map;
     private String[][] data;
     private TaskDecreaseInSales task;
+    private Bootstrap bootstrap;
 
-    public StructureDecreaseInSales(File file) throws IOException {
+    public StructureDecreaseInSales(Bootstrap bootstrap) throws IOException {
+        bootstrap = new Bootstrap();
         this.map = new TreeMap<>();
         task = new TaskDecreaseInSales();
-        data = UtilsFile.readFileToArraySale(file);
+        data = bootstrap.getMatrizDecreaseInSalesTest();
         getData();
+    }
+
+    public void setData(String[][] data) {
+        this.data = data;
     }
 
     public void getData() {

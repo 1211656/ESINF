@@ -11,6 +11,7 @@ class CityTest {
     // testa se dois objetos com atributos diferentes são iguais
     @Test
     void testEqualsDifferentAttributes() {
+        
         City city1 = new City("Porto");
         City city2 = new City("Lisboa");
 

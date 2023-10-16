@@ -6,6 +6,7 @@ import domain.Supercharger;
 import fileIO.Files;
 import tasks.TaskChargerClusterByPOI;
 import tasks.TaskQuotaReport;
+import utils.Bootstrap;
 import utils.UtilsFile;
 
 import java.io.IOException;
@@ -27,13 +28,13 @@ public class StructureQuotaReport implements Files {
     private String[][] data ;
     private TaskQuotaReport task;
     private TaskChargerClusterByPOI taskChargerClusterByPOI;
+    private Bootstrap bootstrap;
 
-    public StructureQuotaReport() throws IOException {
-        data = UtilsFile.readFileToArray(CarregadoresFile);
+    public StructureQuotaReport(Bootstrap bootstrap) throws IOException {
+        this.bootstrap = bootstrap;
+        data = bootstrap.getMatrizQuota();
         task = new TaskQuotaReport();
-        this.fileSales = fileSales;
-        this.fileSuperchargers = fileSuperchargers;
-        saleList = task.getDataFromFile(UtilsFile.readFileToArraySale(SalesFile));
+        saleList = task.getDataFromFile(bootstrap.getMatrizSales());
         superchargerList = taskChargerClusterByPOI.getDataFromFile(data);
     }
 

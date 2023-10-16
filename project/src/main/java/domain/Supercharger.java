@@ -33,6 +33,7 @@ public class Supercharger {
      * @param gps
      */
     public Supercharger(String countryName, String stateName, String cityName, String streetAddress, String zipCode, Stalls stalls, PowerKw powerKw, Elevm elevm,Status status,String gps) {
+
         this.address = new Address(countryName,stateName,cityName,streetAddress,zipCode,gps);
         this.stalls = stalls;
         this.powerKw = powerKw;

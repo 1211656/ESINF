@@ -4,6 +4,7 @@ import domain.Country;
 import domain.Sale;
 import fileIO.Files;
 import tasks.TaskEvolutionNumberVehicles;
+import utils.Bootstrap;
 import utils.UtilsFile;
 
 import java.io.IOException;
@@ -19,12 +20,18 @@ public class StructureEvolutionNumberVehicles implements Files {
     private Map<Sale,Integer> map;
     TaskEvolutionNumberVehicles task;
 
+
+
+    private Bootstrap bootstrap;
+
     /**
      * Construtor de objetos
      */
-    public StructureEvolutionNumberVehicles() throws IOException {
+    public StructureEvolutionNumberVehicles(Bootstrap bootstrap) throws IOException {
+        this.bootstrap = bootstrap;
+        matriz = bootstrap.getMatrizSales();
         task = new TaskEvolutionNumberVehicles();
-        matriz = UtilsFile.readFileToArraySale(SalesFile);
+        objectAllocation(matriz);
 
     }
 
@@ -71,6 +78,24 @@ public class StructureEvolutionNumberVehicles implements Files {
             }
         }
         return res;
+    }
+
+
+    /**
+     * allocation of the objects
+     */
+    public void objectAllocation(String[][] matriz){
+        for (String[] strings : matriz) {
+            if (strings[0] == null) {
+                break;
+            }
+            try {
+                map.put(new Sale(strings[1], strings[0], strings[2], strings[3]),Integer.parseInt(strings[3]));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
 

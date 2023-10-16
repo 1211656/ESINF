@@ -1,9 +1,10 @@
-/**package structures;
+package structures;
 
 import domain.Country;
 import domain.Gps;
 import fileIO.Files;
 import org.junit.jupiter.api.Test;
+import utils.Bootstrap;
 import utils.UtilsFile;
 
 import java.io.IOException;
@@ -15,22 +16,21 @@ class StructureWithMinAutonomyTest implements Files {
 
 
     private SortedMap<Country,String> map ;
-
+    StructureWithMinAutonomy structure;
+    Bootstrap bootstrap;
+    LinkedHashMap<Country,Double> finalMap;
 
     StructureWithMinAutonomyTest() throws IOException {
-
+        bootstrap = new Bootstrap();
+        structure = new StructureWithMinAutonomy(bootstrap);
+        finalMap = structure.ordenateMap2(structure.getFinalMap());
     }
 
     @Test
     void generate() throws IOException {
-
-        // guarda a matriz dos dados
-        System.out.println("Keys    ->     Values");
-        for(SortedMap.Entry<Gps,Country> entry : res.entrySet()){
-            System.out.printf("%.5f , %.5f -> %s\n", entry.getKey().getLatitude(),entry.getKey().getLongitude(), entry.getValue());
+        for(Map.Entry<Country,Double> entry : finalMap.entrySet()){
+            System.out.printf("Country: %s -> Minima Autonomia: %.2f\n",entry.getKey(),entry.getValue());
         }
-
-
 
 
     }
@@ -57,15 +57,12 @@ class StructureWithMinAutonomyTest implements Files {
 
     @Test
     void getMapByCountry() {
-        Map<Gps,Country> map = structureWithMinAutonomy.getMapByCountry(new Country("Portugal"));
-        for (Map.Entry<Gps,Country> entry : map.entrySet()) {
-            System.out.printf("%s\n",entry.getValue());
-        }
+
     }
 
     @Test
     void getFinalMap() {
-        LinkedHashMap<Country,Double> mapFinal = structureWithMinAutonomy.ordenateMap2(structureWithMinAutonomy.getFinalMap());
+        LinkedHashMap<Country,Double> mapFinal = structure.ordenateMap2(structure.getFinalMap());
 
         for(Map.Entry<Country,Double> entry : mapFinal.entrySet()){
             System.out.printf("%s -> %.2f\n", entry.getKey(),entry.getValue());
@@ -74,11 +71,8 @@ class StructureWithMinAutonomyTest implements Files {
 
     @Test
     void getListOfGpsByMapCountry() {
-        List<Gps> gpsList = structureWithMinAutonomy.getListOfGpsByMapCountry(structureWithMinAutonomy.getMapByCountry(new Country("Portugal")));
-        for (int i = 0; i < gpsList.size(); i++) {
-            System.out.println(gpsList.get(i));
-        }
+
     }
 
 
-}*/
+}

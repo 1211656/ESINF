@@ -3,6 +3,7 @@ package structures;
 import domain.*;
 import fileIO.Files;
 import tasks.TaskChargerClusterByPOI;
+import utils.Bootstrap;
 import utils.UtilsFile;
 
 import java.io.File;
@@ -14,14 +15,21 @@ public class StructureChargerClusterByPOI implements Files {
     private Map<Gps, List<Supercharger>> superchargerClusterByPOI;
     private String[][] data;
     private TaskChargerClusterByPOI task;
+    private Bootstrap bootstrap;
 
-    public StructureChargerClusterByPOI(File file) throws IOException {
+    public StructureChargerClusterByPOI(Bootstrap bootstrap) throws IOException {
         task = new TaskChargerClusterByPOI();
-        data = UtilsFile.readFileToArray(file);
+        bootstrap = bootstrap;
+        data = bootstrap.getMatrizChargersClusterByPOI();
         superchargerList = task.getDataFromFile(data);
 
     }
 
+    /**
+     * metodo que retorna o mapa do exercicio 6
+     * @param POIList
+     * @return map ex6
+     */
     public Map<Gps, List<Supercharger>> getDataByPOI(List<Gps> POIList){
         superchargerClusterByPOI = new HashMap<>();
 
@@ -29,6 +37,8 @@ public class StructureChargerClusterByPOI implements Files {
                 POIList) {
             superchargerClusterByPOI.put(gps, new ArrayList<>());
         }
+
+
 
         for (Supercharger supercharger  :
                 superchargerList) {
@@ -49,7 +59,7 @@ public class StructureChargerClusterByPOI implements Files {
                 superchargerClusterByPOI.get(nearestPOI).add(supercharger);
             }
         }
-        return task.sortData(superchargerClusterByPOI,superchargerClusterByPOI);
+        return task.sortData(superchargerClusterByPOI);
     }
 
 

@@ -4,6 +4,7 @@ import domain.Country;
 import domain.YearPair;
 import fileIO.Files;
 import org.junit.jupiter.api.Test;
+import utils.Bootstrap;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -14,12 +15,40 @@ import java.util.TreeMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StructureDecreaseInSalesTest implements Files {
+
+    Bootstrap bootstrap;
+
+    StructureDecreaseInSales structure;
+    Map<Country, Map<YearPair, Map<String, Integer>>> map;
+
+    public StructureDecreaseInSalesTest() throws IOException {
+        bootstrap = new Bootstrap();
+        structure = new StructureDecreaseInSales(bootstrap);
+        map = structure.getMap();
+
+
+    }
+
+    @Test
+    void generate(){
+        for(Map.Entry<Country, Map<YearPair, Map<String, Integer>>> entry : map.entrySet()){
+            System.out.printf("Country : %s\n", entry.getKey());
+            System.out.println("--------------------------");
+            for(Map.Entry<YearPair, Map<String, Integer>> entry1 : entry.getValue().entrySet()){
+                System.out.printf("Year Pair: %s\n",entry1.getKey());
+                for(Map.Entry<String, Integer> entry2 : entry1.getValue().entrySet()){
+                    System.out.printf("%s  ->  %d\n", entry2.getKey(),entry2.getValue());
+                }
+            }
+        }
+    }
+
     @Test
     void test1() throws IOException {
         Map<Country, Map<YearPair, Map<String, Integer>>> decreasedYearlySalesByCountry, expectedResults;
-        StructureDecreaseInSales decreaseInSales = new StructureDecreaseInSales(DecreaseInSalesFile);
-        decreaseInSales.getData();
-        decreasedYearlySalesByCountry = decreaseInSales.getMap();
+
+        structure.getData();
+        decreasedYearlySalesByCountry = structure.getMap();
         expectedResults = new TreeMap<>();
         populateExpectedResultsTest1(expectedResults);
         assertEquals(decreasedYearlySalesByCountry, expectedResults);
@@ -28,7 +57,9 @@ public class StructureDecreaseInSalesTest implements Files {
     @Test
     void testSaleFile() throws IOException {
         Map<Country, Map<YearPair, Map<String, Integer>>> decreasedYearlySalesByCountry, expectedResults;
-        StructureDecreaseInSales decreaseInSales = new StructureDecreaseInSales(SalesFile);
+        StructureDecreaseInSales decreaseInSales = new StructureDecreaseInSales(bootstrap);
+        decreaseInSales.setData(bootstrap.getMatrizSales());
+
         decreaseInSales.getData();
         decreasedYearlySalesByCountry = decreaseInSales.getMap();
         print(decreasedYearlySalesByCountry);

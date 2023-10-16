@@ -19,29 +19,51 @@ public class StructureChargersByCountry {
     private TaskCityChargers cityTask;
     private String[][] data; // Adicione esta variável para armazenar os dados
 
-    public StructureChargersByCountry() throws IOException {
-        bootstrap = new Bootstrap();
+    public StructureChargersByCountry(Bootstrap bootstrap) throws IOException {
+        // inicializa o bootstrap
+        bootstrap = bootstrap;
+        // inicializa task
         task = new TaskChargersByCountry();
+        cityTask = new TaskCityChargers();
+        // cria o mapa
         chargersCidade = new HashMap<>();
+        // recebe a matriz de strings
         data = bootstrap.getMatrizChargers();
+        // preenche o mapa referente ao exercicio
         getChargers();
     }
 
+    /**
+     * @return bootstrap
+     */
     public Bootstrap getBootstrap() {
         return bootstrap;
     }
 
+    /**
+     * @return mapa do ex1
+     */
     public Map<Country, Map<City, Stalls>> getChargersCidade() {
         return chargersCidade;
     }
 
+    /**
+     * @return task
+     */
     public TaskChargersByCountry getTask() {
         return task;
     }
+
+    /**
+     * @return informação do ficheiro em matriz de strings
+     */
     public String[][] getData() {
         return data;
     }
 
+    /**
+     * método que preenche o mapa do ex1
+     */
     public void getChargers() {
         for (int i = 0; i < data.length; i++) {
 

@@ -8,6 +8,7 @@ import com.graphbuilder.math.FuncNode;
 import domain.*;
 import fileIO.Files;
 import tasks.TaskStockCapacity;
+import utils.Bootstrap;
 import utils.UtilsFile;
 
 /**
@@ -25,16 +26,18 @@ public class StructureStockCapacity implements Files {
     private String[][] data;
     private List<Supercharger> superchargerList;
     private TaskStockCapacity task;
+    private Bootstrap bootstrap;
 
     /**
      * Construtor de objeto
      * @throws IOException
      */
-    public StructureStockCapacity()throws IOException {
+    public StructureStockCapacity(Bootstrap btsrap)throws IOException {
+        bootstrap =btsrap;
         task = new TaskStockCapacity();
         list = new ArrayList<>();
         superchargerList = new ArrayList<>();
-        data = UtilsFile.readFileToArray(TesteCarregadores);
+        data = btsrap.getMatrizChargers();
         task.allocateObjects(data,superchargerList);
         map = fulfill(superchargerList);
 

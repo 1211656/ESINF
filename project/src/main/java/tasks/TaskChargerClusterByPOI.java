@@ -1,6 +1,7 @@
 package tasks;
 
 import domain.*;
+import org.apache.poi.poifs.filesystem.Entry;
 
 import java.util.*;
 
@@ -39,18 +40,19 @@ public class TaskChargerClusterByPOI {
         }
         return superchargerList;
     }
-    public Map<Gps, List<Supercharger>> sortData(Map<Gps, List<Supercharger>> unsortedMap,Map<Gps, List<Supercharger>> superchargerClusterByPOI) {
-        Map<Gps, List<Supercharger>> sortedMap = new TreeMap<>(new Comparator<Gps>() {
-            @Override
-            public int compare(Gps o1, Gps o2) {
-                int size1 = superchargerClusterByPOI.get(o1).size();
-                int size2 = superchargerClusterByPOI.get(o2).size();
-                return Integer.compare(size2, size1);
-            }
-        });
+    public Map<Gps, List<Supercharger>> sortData(Map<Gps, List<Supercharger>> unsortedMap) {
+        // Convert the map to a list of entries
+        List<Map.Entry<Gps, List<Supercharger>>> entryList = new ArrayList<>(unsortedMap.entrySet());
 
-        for (Map.Entry<Gps, List<Supercharger>> entry
-                : unsortedMap.entrySet()) {
+        // Create a custom comparator based on the size of the lists in descending order
+        Comparator<Map.Entry<Gps, List<Supercharger>>> byListSizeDesc = (entry1, entry2) -> Integer.compare(entry2.getValue().size(), entry1.getValue().size());
+
+        // Sort the list of entries based on the comparator
+        entryList.sort(byListSizeDesc);
+
+        // Create a new map (LinkedHashMap) to store the sorted entries
+        Map<Gps, List<Supercharger>> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<Gps, List<Supercharger>> entry : entryList) {
             sortedMap.put(entry.getKey(), entry.getValue());
         }
 

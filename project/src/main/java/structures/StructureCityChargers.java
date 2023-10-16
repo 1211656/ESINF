@@ -24,8 +24,8 @@ public class StructureCityChargers {
      * Construtor do objeto
      * @throws IOException
      */
-    public StructureCityChargers() throws IOException {
-        bootstrap = new Bootstrap();
+    public StructureCityChargers(Bootstrap bootstrap) throws IOException {
+        bootstrap = bootstrap;
         task = new TaskCityChargers();
         data = bootstrap.getMatrizChargers();
         chargersCidade= new HashMap<>();

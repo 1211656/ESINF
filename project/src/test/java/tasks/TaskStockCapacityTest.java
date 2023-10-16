@@ -5,6 +5,7 @@ import domain.State;
 import domain.Supercharger;
 import org.junit.jupiter.api.Test;
 import structures.StructureStockCapacity;
+import utils.Bootstrap;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,8 +19,8 @@ class TaskStockCapacityTest {
     List<Country> countryList;
     List<State> stateList;
 
-    public TaskStockCapacityTest() throws IOException {
-        structure = new StructureStockCapacity();
+    public TaskStockCapacityTest(Bootstrap bootstrap) throws IOException {
+        structure = new StructureStockCapacity(bootstrap);
         countryList = new ArrayList<>();
         stateList = new ArrayList<>();
     }
