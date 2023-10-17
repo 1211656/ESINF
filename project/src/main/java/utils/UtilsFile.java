@@ -100,6 +100,31 @@ public class UtilsFile {
             return null;
         }
     }
+    public static String[][] readFileToArrayQuota(File file) throws IOException {
+        try {
+            int numLines = getNumberLinesOfFile(file)-1;
+            int numColumns = getNumberOfColumnsFile(file);
+            String[][] res = new String[numLines][numColumns];
+
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String linha;
+            br.readLine(); // Skip the first line
+
+            int index = 0;
+            while ((linha = br.readLine()) != null && !linha.equals("")) {
+                String[] campos = UtilsFile.splitCSVLine(linha);
+                res[index] = campos;
+                index++;
+            }
+
+            br.close();
+            return res;
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     /**
      * @param file

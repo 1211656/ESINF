@@ -14,6 +14,7 @@ public class Bootstrap implements Files {
 
     private String[][] matrizDecreaseInSalesTest;
     private String[][] matrizQuota;
+    private String[][] matrizQuotaSales;
 
     public Bootstrap() throws IOException {
         matrizChargers = UtilsFile.readFileToArray(TesteCarregadores);
@@ -21,6 +22,11 @@ public class Bootstrap implements Files {
         matrizChargersClusterByPOI = UtilsFile.readFileToArray(testeClusterByPOI);
         matrizDecreaseInSalesTest = UtilsFile.readFileToArraySale(DecreaseInSalesFile);
         matrizQuota = UtilsFile.readFileToArray(TesteCarregadores);
+        matrizQuotaSales = UtilsFile.readFileToArrayQuota(SalesFile);
+    }
+
+    public String[][] getMatrizQuotaSales() {
+        return matrizQuotaSales;
     }
 
     public String[][] getMatrizChargers() {

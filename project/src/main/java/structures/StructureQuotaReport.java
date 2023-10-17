@@ -34,7 +34,7 @@ public class StructureQuotaReport implements Files {
         this.bootstrap = bootstrap;
         data = bootstrap.getMatrizQuota();
         task = new TaskQuotaReport();
-        saleList = task.getDataFromFile(bootstrap.getMatrizSales());
+        saleList = task.getDataFromFile(bootstrap.getMatrizQuotaSales());
         superchargerList = taskChargerClusterByPOI.getDataFromFile(data);
     }
 
